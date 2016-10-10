@@ -45,6 +45,11 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.menuLeft);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //show only the right menu items
+        /*MenuItem manageRestaurants = (MenuItem) findViewById(R.id.nav_restaurants);
+        manageRestaurants.setVisible(false);
+        this.invalidateOptionsMenu();*/
     }
 
     @Override
@@ -61,7 +66,13 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
             return true;
         }
         if( item.getItemId() == R.id.shopping_cart) {
-            drawerLayout.openDrawer(Gravity.RIGHT);
+            if(drawerLayout.isDrawerOpen(Gravity.RIGHT) == true) {
+                drawerLayout.closeDrawer(Gravity.RIGHT);
+            }
+            else {
+                drawerLayout.openDrawer(Gravity.RIGHT);
+            }
+            drawerLayout.closeDrawer(Gravity.LEFT);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -70,15 +81,15 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         switch (item.getItemId()) {
-            case R.id.nav_menu_1:
+            case R.id.nav_home:
                 HomeMenuFragment homeMenuFragment = new HomeMenuFragment();
                 fragmentTransaction.replace(R.id.frameLayout, homeMenuFragment);
                 break;
-            case R.id.nav_menu_2:
-                Toast.makeText(MenuActivity.this, "Delete item", Toast.LENGTH_SHORT).show();
+            case R.id.nav_restaurants:
+                Toast.makeText(MenuActivity.this, "restaurants", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.settings:
-                Toast.makeText(MenuActivity.this, "Delete item", Toast.LENGTH_SHORT).show();
+            case R.id.nav_settings:
+                Toast.makeText(MenuActivity.this, "Settings", Toast.LENGTH_SHORT).show();
                 break;
         }
         fragmentTransaction.commit();
