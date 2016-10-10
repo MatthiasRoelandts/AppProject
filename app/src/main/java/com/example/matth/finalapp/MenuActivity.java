@@ -47,14 +47,12 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         //show only the right menu items
-        /*MenuItem manageRestaurants = (MenuItem) findViewById(R.id.nav_restaurants);
-        manageRestaurants.setVisible(false);
-        this.invalidateOptionsMenu();*/
+        //navigationView.getMenu().clear(); //clear old inflated items.
+        //navigationView.inflateMenu(R.menu.nav_waiter_menu);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.action_menu, menu);
         return true;
     }
@@ -86,10 +84,16 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 fragmentTransaction.replace(R.id.frameLayout, homeMenuFragment);
                 break;
             case R.id.nav_restaurants:
-                Toast.makeText(MenuActivity.this, "restaurants", Toast.LENGTH_SHORT).show();
+                RestaurantFragment restaurantFragment = new RestaurantFragment();
+                fragmentTransaction.replace(R.id.frameLayout, restaurantFragment);
                 break;
             case R.id.nav_settings:
-                Toast.makeText(MenuActivity.this, "Settings", Toast.LENGTH_SHORT).show();
+                SettingsFragment settingsFragment = new SettingsFragment();
+                fragmentTransaction.replace(R.id.frameLayout, settingsFragment);
+                break;
+            case R.id.nav_waiters:
+                WaitersFragment waitersFragment = new WaitersFragment();
+                fragmentTransaction.replace(R.id.frameLayout, waitersFragment);
                 break;
         }
         fragmentTransaction.commit();
