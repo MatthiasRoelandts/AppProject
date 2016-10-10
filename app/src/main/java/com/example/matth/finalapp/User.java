@@ -6,7 +6,7 @@ package com.example.matth.finalapp;
 
 public class User {
     private String name;
-    private String lastName;
+    private String lastname;
     private String email;
     private String phone;
     private String password;
@@ -20,12 +20,12 @@ public class User {
         this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getEmail() {

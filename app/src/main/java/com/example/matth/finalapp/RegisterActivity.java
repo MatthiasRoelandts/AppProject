@@ -29,7 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
                 EditText userEmail = (EditText) findViewById(R.id.editText3);
                 EditText userPassword = (EditText) findViewById(R.id.editText4);
                 user.setName(userFistname.getText().toString());
-                user.setLastName(userLastname.getText().toString());
+                user.setLastname(userLastname.getText().toString());
                 user.setEmail(userEmail.getText().toString());
                 user.setPassword(userPassword.getText().toString());
             }
