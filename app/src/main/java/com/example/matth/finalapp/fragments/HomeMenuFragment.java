@@ -1,10 +1,12 @@
-package com.example.matth.finalapp;
+package com.example.matth.finalapp.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.matth.finalapp.R;
 
 public class HomeMenuFragment extends Fragment {
 

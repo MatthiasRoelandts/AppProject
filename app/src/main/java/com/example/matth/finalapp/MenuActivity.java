@@ -12,7 +12,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+
+import com.example.matth.finalapp.fragments.ChangeMenuFragment;
+import com.example.matth.finalapp.fragments.HomeMenuFragment;
+import com.example.matth.finalapp.fragments.KitchenFragment;
+import com.example.matth.finalapp.fragments.OrdersFragment;
+import com.example.matth.finalapp.fragments.ReservationFragment;
+import com.example.matth.finalapp.fragments.RestaurantFragment;
+import com.example.matth.finalapp.fragments.SettingsFragment;
+import com.example.matth.finalapp.fragments.WaitersFragment;
 
 public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -94,6 +102,22 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_waiters:
                 WaitersFragment waitersFragment = new WaitersFragment();
                 fragmentTransaction.replace(R.id.frameLayout, waitersFragment);
+                break;
+            case R.id.nav_reservation:
+                ReservationFragment reservationFragment = new ReservationFragment();
+                fragmentTransaction.replace(R.id.frameLayout, reservationFragment);
+                break;
+            case R.id.nav_kitchen:
+                KitchenFragment kitchenFragment = new KitchenFragment();
+                fragmentTransaction.replace(R.id.frameLayout, kitchenFragment);
+                break;
+            case R.id.nav_orders:
+                OrdersFragment ordersFragment = new OrdersFragment();
+                fragmentTransaction.replace(R.id.frameLayout, ordersFragment);
+                break;
+            case R.id.nav_change_menu:
+                ChangeMenuFragment changeMenuFragment = new ChangeMenuFragment();
+                fragmentTransaction.replace(R.id.frameLayout, changeMenuFragment);
                 break;
         }
         fragmentTransaction.commit();

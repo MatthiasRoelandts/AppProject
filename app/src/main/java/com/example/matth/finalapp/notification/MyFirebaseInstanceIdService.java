@@ -1,4 +1,4 @@
-package com.example.matth.finalapp;
+package com.example.matth.finalapp.notification;
 
 import android.util.Log;
 

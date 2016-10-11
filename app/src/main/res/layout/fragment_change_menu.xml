@@ -2,12 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.matth.finalapp.fragments.SettingsFragment">
+    tools:context="com.example.matth.finalapp.fragments.ChangeMenuFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Here you will see the settings" />
+        android:text="Here you can change the menu" />
 
 </FrameLayout>

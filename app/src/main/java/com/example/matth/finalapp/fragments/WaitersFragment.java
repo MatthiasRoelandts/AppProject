@@ -1,4 +1,4 @@
-package com.example.matth.finalapp;
+package com.example.matth.finalapp.fragments;
 
 
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.matth.finalapp.R;
 import com.google.android.gms.plus.PlusOneButton;
 
 /**
