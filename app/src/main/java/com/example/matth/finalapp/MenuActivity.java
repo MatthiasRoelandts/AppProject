@@ -26,6 +26,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
     ActionBarDrawerToggle toggleLeft;
     DrawerLayout drawerLayout;
+    HomeMenuFragment homeMenuFragment;
     Toolbar myToolbar;
 
     @Override
@@ -33,14 +34,14 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         //add toolbar
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         myToolbar.setTitle("Menu");
         myToolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
         //set the main fragment
-        HomeMenuFragment homeMenuFragment = new HomeMenuFragment();
+        homeMenuFragment = new HomeMenuFragment();
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frameLayout, homeMenuFragment);
         fragmentTransaction.commit();
@@ -60,38 +61,34 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         //navigationView.inflateMenu(R.menu.nav_waiter_menu);
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.action_menu, menu);
-        //MenuItem menuitem = (MenuItem) menu.findItem(R.id.shopping_cart);
-        //menuitem.setVisible(false);
         return true;
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(toggleLeft.onOptionsItemSelected(item)) {
-            drawerLayout.closeDrawer(Gravity.RIGHT);
+            if(homeMenuFragment !=null) {
+                homeMenuFragment.closeRightDrawer();
+            }
             return true;
         }
-        if(item.getItemId() == R.id.shopping_cart) {
-            if(drawerLayout.isDrawerOpen(Gravity.RIGHT) == true) {
-                drawerLayout.closeDrawer(Gravity.RIGHT);
-            }
-            else {
-                drawerLayout.openDrawer(Gravity.RIGHT);
-            }
-            drawerLayout.closeDrawer(Gravity.LEFT);
-        }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void closeLeftDrawer() {
+        drawerLayout.closeDrawers();
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        homeMenuFragment = null;
         switch (item.getItemId()) {
             case R.id.nav_home:
-                HomeMenuFragment homeMenuFragment = new HomeMenuFragment();
+                homeMenuFragment = new HomeMenuFragment();
                 fragmentTransaction.replace(R.id.frameLayout, homeMenuFragment);
                 break;
             case R.id.nav_restaurants:

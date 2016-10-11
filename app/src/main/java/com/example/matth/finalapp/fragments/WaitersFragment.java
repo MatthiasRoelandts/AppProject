@@ -4,6 +4,8 @@ package com.example.matth.finalapp.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -67,12 +69,10 @@ public class WaitersFragment extends Fragment {
         return rootView;
     }
 
-    @Override
+    /*@Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        //inflater.inflate(R.menu.action_menu, menu);
         MenuItem menuitem = (MenuItem) menu.findItem(R.id.shopping_cart);
         menuitem.setVisible(false);
-
-    }
+    }*/
 }

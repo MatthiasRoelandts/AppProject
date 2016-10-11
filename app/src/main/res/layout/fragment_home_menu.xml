@@ -4,10 +4,27 @@
     android:layout_height="match_parent"
     tools:context="com.example.matth.finalapp.fragments.HomeMenuFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawerLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Here you will see the menu and order" />
+        tools:context="com.example.matth.finalapp.MainActivity">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Here you will see the menu and order" />
+
+        <android.support.design.widget.NavigationView
+            android:id="@+id/menuRight"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right">
+
+            <include layout="@layout/shopping_cart" />
+
+        </android.support.design.widget.NavigationView>
+
+    </android.support.v4.widget.DrawerLayout>
 
 </FrameLayout>
