@@ -32,6 +32,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        //add toolbar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         myToolbar.setTitle("Menu");
         myToolbar.setTitleTextColor(Color.WHITE);
@@ -62,6 +63,8 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.action_menu, menu);
+        //MenuItem menuitem = (MenuItem) menu.findItem(R.id.shopping_cart);
+        //menuitem.setVisible(false);
         return true;
     }
 
@@ -71,7 +74,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
             drawerLayout.closeDrawer(Gravity.RIGHT);
             return true;
         }
-        if( item.getItemId() == R.id.shopping_cart) {
+        if(item.getItemId() == R.id.shopping_cart) {
             if(drawerLayout.isDrawerOpen(Gravity.RIGHT) == true) {
                 drawerLayout.closeDrawer(Gravity.RIGHT);
             }

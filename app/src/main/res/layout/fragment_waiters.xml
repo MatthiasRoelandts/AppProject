@@ -4,9 +4,9 @@
     android:layout_height="match_parent"
     tools:context=".fragments.WaitersFragment">
 
-    <TextView
+    <ListView
+        android:id="@+id/waiter_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Here you will see and manage the waiters" />
+        android:layout_height="match_parent" />
 
 </FrameLayout>
