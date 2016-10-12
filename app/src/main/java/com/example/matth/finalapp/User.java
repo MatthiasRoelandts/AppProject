@@ -1,9 +1,12 @@
 package com.example.matth.finalapp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Created by matth on 7/10/2016.
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
     private String name;
     private String lastname;
@@ -11,6 +14,12 @@ public class User {
     private String phone;
     private String password;
     private String token;
+
+    public User(String email,String password){
+
+        this.email = email;
+        this.password = password;
+    }
 
     public String getName() {
         return name;
