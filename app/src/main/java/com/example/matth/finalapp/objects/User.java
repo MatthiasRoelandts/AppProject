@@ -1,4 +1,4 @@
-package com.example.matth.finalapp;
+package com.example.matth.finalapp.objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
