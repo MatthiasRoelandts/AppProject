@@ -19,7 +19,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.matth.finalapp.fragments.HomeMenuFragment;
 import com.example.matth.finalapp.token.TokenManager;
 
 public class MenuActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener{

@@ -34,7 +34,6 @@ public class RegisterActivity extends BaseActivity {
     private EditText rEmailView;
     private EditText rPasswordView;
     private Activity registerActivity;
-    private View focusView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +68,7 @@ public class RegisterActivity extends BaseActivity {
         String password = rPasswordView.getText().toString();
 
         boolean cancel = false;
-        focusView = null;
-
+        View focusView = null;
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
@@ -175,10 +173,12 @@ public class RegisterActivity extends BaseActivity {
                     finish();
                 }
                 if(status == HttpStatus.CONFLICT){
-
+                    System.out.println("Very bad conflict");
+                    rFirstNameView.setError(null);
+                    rLastNameView.setError(null);
+                    rEmailView.setError(null);
+                    rPasswordView.setError(null);
                     rEmailView.setError(getString(R.string.error_duplicate_email));
-                    focusView = rEmailView;
-                    focusView.requestFocus();
                 }
             }
         }.execute();
