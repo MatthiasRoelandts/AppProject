@@ -28,6 +28,7 @@ public class HomeMenuFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home_menu, container, false);
         setHasOptionsMenu(true);
+        ((MenuActivity) getActivity()).getSupportActionBar().setTitle("Menu");
 
         drawerLayout = (DrawerLayout) rootView.findViewById(R.id.drawerLayout2);
 

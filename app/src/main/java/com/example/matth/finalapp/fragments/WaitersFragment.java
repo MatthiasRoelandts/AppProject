@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.matth.finalapp.MenuActivity;
 import com.example.matth.finalapp.R;
 import com.example.matth.finalapp.WaiterActivity;
 import com.google.android.gms.plus.PlusOneButton;
@@ -38,17 +39,15 @@ public class WaitersFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_waiters, container, false);
         setHasOptionsMenu(true);
+        ((MenuActivity) getActivity()).getSupportActionBar().setTitle("Waiters");
 
         listView = (ListView) rootView.findViewById(R.id.waiter_list);
 
-        String[] values = new String[] { "Android List View",
-                "Adapter implementation",
-                "Simple List View In Android",
-                "Create List View Android",
-                "Android Example",
-                "List View Source Code",
-                "List View Array Adapter",
-                "Android Example List View"
+        String[] values = new String[] { "Jef De Ober",
+                "Matthias de beste",
+                "beste ober ter wereld",
+                "i'm the one you need",
+                "slechtste ober",
         };
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, values);
         listView.setAdapter(adapter);
@@ -60,9 +59,10 @@ public class WaitersFragment extends Fragment {
                 int itemPosition = position;
                 String itemValue = (String) listView.getItemAtPosition(position);
 
-                Intent waiterIntent = new Intent(getContext(), WaiterActivity.class);
-                waiterIntent.putExtra("itemName", itemValue);
-                startActivity(waiterIntent);
+                ((MenuActivity) getActivity()).changeToWaiterDetailFragment(itemValue);
+                //Intent waiterIntent = new Intent(getContext(), WaiterActivity.class);
+                //waiterIntent.putExtra("itemName", itemValue);
+                //startActivity(waiterIntent);
             }
         });
 

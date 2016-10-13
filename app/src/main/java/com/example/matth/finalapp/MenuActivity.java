@@ -20,6 +20,7 @@ import com.example.matth.finalapp.fragments.OrdersFragment;
 import com.example.matth.finalapp.fragments.ReservationFragment;
 import com.example.matth.finalapp.fragments.RestaurantFragment;
 import com.example.matth.finalapp.fragments.SettingsFragment;
+import com.example.matth.finalapp.fragments.WaiterDetailFragment;
 import com.example.matth.finalapp.fragments.WaitersFragment;
 
 public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -28,6 +29,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawerLayout;
     HomeMenuFragment homeMenuFragment;
     Toolbar myToolbar;
+    android.support.v4.app.FragmentTransaction fragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +77,10 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
             }
             return true;
         }
+        if(item.getItemId() == android.R.id.home) {
+            changeToWaitersFragment();
+            drawerLayout.closeDrawers();
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -84,7 +90,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
         homeMenuFragment = null;
         switch (item.getItemId()) {
             case R.id.nav_home:
@@ -126,5 +132,26 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
             dl.closeDrawer(GravityCompat.START);
         }
         return false;
+    }
+
+    public void changeToWaiterDetailFragment(String name) {
+        toggleLeft.setDrawerIndicatorEnabled(false);
+        toggleLeft.syncState();
+        Bundle bundle = new Bundle();
+        bundle.putString("name", name);
+        WaiterDetailFragment waiterDetail = new WaiterDetailFragment();
+        waiterDetail.setArguments(bundle);
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout, waiterDetail);
+        fragmentTransaction.commit();
+    }
+
+    public void changeToWaitersFragment() {
+        toggleLeft.setDrawerIndicatorEnabled(true);
+        toggleLeft.syncState();
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        WaitersFragment waitersFragment = new WaitersFragment();
+        fragmentTransaction.replace(R.id.frameLayout, waitersFragment);
+        fragmentTransaction.commit();
     }
 }
