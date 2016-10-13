@@ -17,21 +17,9 @@
         android:title="More">
         <menu>
             <item
-                android:id="@+id/nav_restaurants"
-                android:icon="@drawable/ic_store_black_24dp"
-                android:title="Switch Restaurant" />
-            <item
                 android:id="@+id/nav_kitchen"
                 android:icon="@drawable/ic_room_service_black_24dp"
                 android:title="Kitchen" />
-            <item
-                android:id="@+id/nav_waiters"
-                android:icon="@drawable/ic_perm_identity_black_24dp"
-                android:title="Manage Waiters" />
-            <item
-                android:id="@+id/nav_change_menu"
-                android:icon="@drawable/ic_import_contacts_black_24dp"
-                android:title="Change Menu" />
             <item
                 android:id="@+id/nav_settings"
                 android:icon="@drawable/ic_settings_black_24dp"
