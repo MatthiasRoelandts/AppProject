@@ -1,4 +1,4 @@
-package com.example.matth.finalapp.notification;
+package com.example.matth.finalapp;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
