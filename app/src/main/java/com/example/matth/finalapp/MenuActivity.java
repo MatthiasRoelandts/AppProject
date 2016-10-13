@@ -19,27 +19,38 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.matth.finalapp.fragments.ChangeMenuFragment;
 import com.example.matth.finalapp.fragments.HomeMenuFragment;
+import com.example.matth.finalapp.fragments.KitchenFragment;
+import com.example.matth.finalapp.fragments.OrdersFragment;
+import com.example.matth.finalapp.fragments.ReservationFragment;
+import com.example.matth.finalapp.fragments.RestaurantFragment;
+import com.example.matth.finalapp.fragments.SettingsFragment;
+import com.example.matth.finalapp.fragments.WaiterDetailFragment;
+import com.example.matth.finalapp.fragments.WaitersFragment;
 import com.example.matth.finalapp.token.TokenManager;
 
 public class MenuActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     ActionBarDrawerToggle toggleLeft;
     DrawerLayout drawerLayout;
+    HomeMenuFragment homeMenuFragment;
     Toolbar myToolbar;
+    android.support.v4.app.FragmentTransaction fragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        //add toolbar
+        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         myToolbar.setTitle("Menu");
         myToolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
         //set the main fragment
-        HomeMenuFragment homeMenuFragment = new HomeMenuFragment();
+        homeMenuFragment = new HomeMenuFragment();
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frameLayout, homeMenuFragment);
         fragmentTransaction.commit();
@@ -81,44 +92,68 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         this.invalidateOptionsMenu();*/
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.action_menu, menu);
         return true;
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(toggleLeft.onOptionsItemSelected(item)) {
-            drawerLayout.closeDrawer(Gravity.RIGHT);
+            if(homeMenuFragment !=null) {
+                homeMenuFragment.closeRightDrawer();
+            }
             return true;
         }
-        if( item.getItemId() == R.id.shopping_cart) {
-            if(drawerLayout.isDrawerOpen(Gravity.RIGHT) == true) {
-                drawerLayout.closeDrawer(Gravity.RIGHT);
-            }
-            else {
-                drawerLayout.openDrawer(Gravity.RIGHT);
-            }
-            drawerLayout.closeDrawer(Gravity.LEFT);
+        if(item.getItemId() == android.R.id.home) {
+            changeToWaitersFragment();
+            drawerLayout.closeDrawers();
         }
         return super.onOptionsItemSelected(item);
     }
 
+    public void closeLeftDrawer() {
+        drawerLayout.closeDrawers();
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        homeMenuFragment = null;
         switch (item.getItemId()) {
             case R.id.nav_home:
-                HomeMenuFragment homeMenuFragment = new HomeMenuFragment();
+                homeMenuFragment = new HomeMenuFragment();
                 fragmentTransaction.replace(R.id.frameLayout, homeMenuFragment);
                 break;
             case R.id.nav_restaurants:
-                Toast.makeText(MenuActivity.this, "restaurants", Toast.LENGTH_SHORT).show();
+                RestaurantFragment restaurantFragment = new RestaurantFragment();
+                fragmentTransaction.replace(R.id.frameLayout, restaurantFragment);
                 break;
             case R.id.nav_settings:
-                Toast.makeText(MenuActivity.this, "Settings", Toast.LENGTH_SHORT).show();
+                SettingsFragment settingsFragment = new SettingsFragment();
+                fragmentTransaction.replace(R.id.frameLayout, settingsFragment);
+                break;
+            case R.id.nav_waiters:
+                WaitersFragment waitersFragment = new WaitersFragment();
+                fragmentTransaction.replace(R.id.frameLayout, waitersFragment);
+                break;
+            case R.id.nav_reservation:
+                ReservationFragment reservationFragment = new ReservationFragment();
+                fragmentTransaction.replace(R.id.frameLayout, reservationFragment);
+                break;
+            case R.id.nav_kitchen:
+                KitchenFragment kitchenFragment = new KitchenFragment();
+                fragmentTransaction.replace(R.id.frameLayout, kitchenFragment);
+                break;
+            case R.id.nav_orders:
+                OrdersFragment ordersFragment = new OrdersFragment();
+                fragmentTransaction.replace(R.id.frameLayout, ordersFragment);
+                break;
+            case R.id.nav_change_menu:
+                ChangeMenuFragment changeMenuFragment = new ChangeMenuFragment();
+                fragmentTransaction.replace(R.id.frameLayout, changeMenuFragment);
                 break;
         }
         fragmentTransaction.commit();
@@ -127,5 +162,26 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
             dl.closeDrawer(GravityCompat.START);
         }
         return false;
+    }
+
+    public void changeToWaiterDetailFragment(String name) {
+        toggleLeft.setDrawerIndicatorEnabled(false);
+        toggleLeft.syncState();
+        Bundle bundle = new Bundle();
+        bundle.putString("name", name);
+        WaiterDetailFragment waiterDetail = new WaiterDetailFragment();
+        waiterDetail.setArguments(bundle);
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout, waiterDetail);
+        fragmentTransaction.commit();
+    }
+
+    public void changeToWaitersFragment() {
+        toggleLeft.setDrawerIndicatorEnabled(true);
+        toggleLeft.syncState();
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        WaitersFragment waitersFragment = new WaitersFragment();
+        fragmentTransaction.replace(R.id.frameLayout, waitersFragment);
+        fragmentTransaction.commit();
     }
 }

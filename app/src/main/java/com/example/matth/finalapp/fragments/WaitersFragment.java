@@ -57,8 +57,7 @@ public class WaitersFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int itemPosition = position;
                 String itemValue = (String) listView.getItemAtPosition(position);
-                //TURN BACK !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                //((MenuActivity) getActivity()).changeToWaiterDetailFragment(itemValue);
+                ((MenuActivity) getActivity()).changeToWaiterDetailFragment(itemValue);
             }
         });
 
