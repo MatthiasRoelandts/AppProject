@@ -1,6 +1,9 @@
 package com.example.matth.finalapp;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,9 +15,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
-public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+import com.example.matth.finalapp.token.TokenManager;
+
+public class MenuActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     ActionBarDrawerToggle toggleLeft;
     DrawerLayout drawerLayout;
@@ -45,6 +52,27 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.menuLeft);
         navigationView.setNavigationItemSelectedListener(this);
+
+        final Activity menuActivity = this;
+
+        Button logOutButton = (Button) findViewById(R.id.logOutButton);
+        logOutButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+
+                TokenManager tokenManager = new TokenManager(PreferenceManager.getDefaultSharedPreferences(menuActivity));
+                setLoggedin(false);
+                tokenManager.removeToken();
+                if(getAuthToken()==""){
+                   /* Snackbar.make(v, "Token successfully removed", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    */
+                    Intent intent = new Intent(menuActivity,LoginActivity.class  );
+                    startActivity(intent);
+                }
+            }
+        });
 
         //show only the right menu items
         /*MenuItem manageRestaurants = (MenuItem) findViewById(R.id.nav_restaurants);

@@ -26,17 +26,14 @@
             android:id="@+id/frameLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Log Out"
+                android:id="@+id/logOutButton"
+                android:layout_gravity="center" />
         </FrameLayout>
-
-        <android.support.design.widget.NavigationView
-            android:id="@+id/menuRight"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="right">
-
-            <include layout="@layout/shopping_cart" />
-
-        </android.support.design.widget.NavigationView>
 
         <android.support.design.widget.NavigationView
             android:id="@+id/menuLeft"
