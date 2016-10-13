@@ -1,4 +1,4 @@
-package com.example.matth.finalapp;
+package com.example.matth.finalapp.objects;
 
 /**
  * Created by matth on 7/10/2016.
