@@ -52,7 +52,7 @@ public class BaseActivity extends AppCompatActivity{
 
     //Functions for login and registration
     public boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
+        //TODO: Replace this with your own logic add extra code here
         return email.contains("@");
     }
 
