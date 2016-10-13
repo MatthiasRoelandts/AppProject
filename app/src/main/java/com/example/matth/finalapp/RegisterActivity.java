@@ -7,11 +7,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import com.example.matth.finalapp.token.JwtAuthenticationToken;
+import com.example.matth.finalapp.objects.Owner;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -20,12 +19,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.ResourceAccessException;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-
-import java.math.BigDecimal;
 
 public class RegisterActivity extends BaseActivity {
 

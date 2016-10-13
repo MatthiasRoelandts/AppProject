@@ -2,14 +2,11 @@ package com.example.matth.finalapp.token;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.session.MediaSession;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
 
-import com.example.matth.finalapp.BaseActivity;
 import com.example.matth.finalapp.LoginActivity;
 import com.example.matth.finalapp.MenuActivity;
-import com.example.matth.finalapp.User;
+import com.example.matth.finalapp.objects.User;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;

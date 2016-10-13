@@ -28,6 +28,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.matth.finalapp.objects.User;
 import com.example.matth.finalapp.token.TokenManager;
 
 import java.util.ArrayList;
