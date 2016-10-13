@@ -43,8 +43,7 @@ public class HomeMenuFragment extends Fragment {
             }
             else {
                 drawerLayout.openDrawer(Gravity.RIGHT);
-                //TURN BACK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                //((MenuActivity)getActivity()).closeLeftDrawer();
+                ((MenuActivity)getActivity()).closeLeftDrawer();
             }
         }
         return super.onOptionsItemSelected(item);

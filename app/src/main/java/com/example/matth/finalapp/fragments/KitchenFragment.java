@@ -24,7 +24,7 @@ public class KitchenFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_change_menu, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_kitchen, container, false);
         ((MenuActivity) getActivity()).getSupportActionBar().setTitle("Kitchen");
         return rootView;
     }

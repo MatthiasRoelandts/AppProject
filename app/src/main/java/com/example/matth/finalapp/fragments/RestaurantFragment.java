@@ -25,7 +25,7 @@ public class RestaurantFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_change_menu, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_restaurant, container, false);
         ((MenuActivity) getActivity()).getSupportActionBar().setTitle("Restaurants");
         return rootView;
     }
