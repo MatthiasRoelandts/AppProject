@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -134,7 +135,7 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         homeMenuFragment = null;
-        Log.d("backstack", "backstand = "+ getSupportFragmentManager().getBackStackEntryCount());
+        getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         switch (item.getItemId()) {
             case R.id.nav_home:
                 turnMenuOn();
@@ -202,7 +203,6 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         fragmentTransaction.replace(R.id.frameLayout, waiterDetail);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        Log.d("backstack", "backstand = "+ getSupportFragmentManager().getBackStackEntryCount());
     }
 
     public void changeToWaitersFragment() {
@@ -210,7 +210,6 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         WaitersFragment waitersFragment = new WaitersFragment();
         fragmentTransaction.replace(R.id.frameLayout, waitersFragment);
-        //fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
@@ -219,7 +218,6 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         ChangeMenuFragment changeMenuFragment = new ChangeMenuFragment();
         fragmentTransaction.replace(R.id.frameLayout, changeMenuFragment);
-        //fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
@@ -230,7 +228,6 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         fragmentTransaction.replace(R.id.frameLayout, addItemFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        Log.d("backstack", "backstand = "+ getSupportFragmentManager().getBackStackEntryCount());
     }
 
     private void turnMenuOff() {
