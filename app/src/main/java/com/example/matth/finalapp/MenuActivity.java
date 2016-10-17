@@ -70,21 +70,7 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
 
         final Activity menuActivity = this;
 
-        Button logOutButton = (Button) findViewById(R.id.logOutButton);
-        logOutButton.setOnClickListener(new View.OnClickListener(){
 
-            @Override
-            public void onClick(View v) {
-
-                TokenManager tokenManager = new TokenManager(PreferenceManager.getDefaultSharedPreferences(menuActivity));
-                setLoggedin(false);
-                tokenManager.removeToken();
-                if(getAuthToken()==""){
-                    Intent intent = new Intent(menuActivity,LoginActivity.class  );
-                    startActivity(intent);
-                }
-            }
-        });
 
         //show only the right menu items
         /*MenuItem manageRestaurants = (MenuItem) findViewById(R.id.nav_restaurants);
