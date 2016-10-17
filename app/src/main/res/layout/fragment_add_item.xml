@@ -81,7 +81,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/addItem_LayoutCategory"
-                    android:visibility="invisible">
+                    android:visibility="gone">
 
                     <EditText
                         android:id="@+id/addItem_new_category"
@@ -94,10 +94,9 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/addItem_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="attemptAddingItem"
                     android:text="Add Item" />
 
             </LinearLayout>
