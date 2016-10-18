@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">FinalApp</string>
 
-    <!-- Strings related to  and registration -->
+    <!-- Strings related to login and registration -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in</string>
@@ -14,9 +14,15 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name = "registration_success">Registration successfull</string>
+    <string name="registration_success">Registration successfull</string>
 
-
+    <!--Strings related to adding a business -->
+    <string name="prompt_business_name">Name</string>
+    <string name="prompt_business_address">Address</string>
+    <string name="prompt_business_city">City</string>
+    <string name="prompt_business_postal">Postal</string>
+    <string name="prompt_business_description">Description</string>
+    <string name="action_add_business">Add Business</string>
 
     <string name="open">open</string>
     <string name="close">close</string>
