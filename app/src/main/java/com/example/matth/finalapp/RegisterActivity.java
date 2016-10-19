@@ -143,7 +143,7 @@ public class RegisterActivity extends BaseActivity {
                     ResponseEntity response = null;
                     try {
                         HttpEntity<Owner> request = new HttpEntity(owner);
-                        response = restTemplate.exchange(url, HttpMethod.POST,request,Owner.class);
+                        response = restTemplate.exchange(url, HttpMethod.POST, request, Owner.class);
                         status = response.getStatusCode();
 
                     } catch (HttpClientErrorException e){

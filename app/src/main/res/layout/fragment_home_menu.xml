@@ -10,10 +10,13 @@
         android:layout_height="match_parent"
         tools:context="com.example.matth.finalapp.MainActivity">
 
-        <TextView
+        <ExpandableListView
+            android:id="@+id/expandableMenu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Here you will see the menu and order" />
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="0.5dp"
+            android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft" />
 
         <android.support.design.widget.NavigationView
             android:id="@+id/menuRight"

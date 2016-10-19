@@ -35,4 +35,12 @@ public class ChangeMenuFragment extends Fragment {
 
         return rootView;
     }
+
+    private void getAllItems() {
+
+    }
+
+    private void getAllCategories() {
+
+    }
 }
