@@ -1,16 +1,16 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.matth.finalapp.fragments.AddRestaurantFragment">
 
-   <!-- <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">-->
+    <!-- <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+         xmlns:app="http://schemas.android.com/apk/res-auto"
+         xmlns:tools="http://schemas.android.com/tools"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:fitsSystemWindows="true">-->
 
     <ProgressBar
         android:id="@+id/addbusiness_progress"
@@ -20,21 +20,21 @@
         android:layout_marginBottom="8dp"
         android:visibility="gone" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Here come your list of businesses"/>
+    <ListView
+        android:id="@+id/restaurant_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floating_add_business_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|bottom"
-            android:layout_margin="16dp"
-            android:clickable="true"
-            android:src="@drawable/ic_add_white_24dp"
-            app:layout_anchorGravity="bottom|end"/>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floating_add_business_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:src="@drawable/ic_add_white_24dp"
+        app:layout_anchorGravity="bottom|end" />
 </FrameLayout>
 
 
