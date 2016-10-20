@@ -1,11 +1,13 @@
 package com.example.matth.finalapp.objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.sql.Time;
 
 /**
  * Created by matth on 16/10/2016.
  */
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MenuItem {
 
     private String title;
