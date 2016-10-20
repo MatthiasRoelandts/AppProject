@@ -1,0 +1,3 @@
+[submodule "server"]
+	path = server
+	url = https://MatthiasRoelandts@bitbucket.org/xploregroup/faros-groept-cashregister_01.git

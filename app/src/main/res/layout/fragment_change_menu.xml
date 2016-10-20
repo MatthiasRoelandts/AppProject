@@ -5,11 +5,13 @@
     android:layout_height="match_parent"
     tools:context="com.example.matth.finalapp.fragments.ChangeMenuFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ExpandableListView
+        android:id="@+id/expandableMenu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Here you can change the menu" />
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="0.5dp"
+        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
