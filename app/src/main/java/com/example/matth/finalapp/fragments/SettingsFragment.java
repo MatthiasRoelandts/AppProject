@@ -1,14 +1,19 @@
 package com.example.matth.finalapp.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.example.matth.finalapp.LoginActivity;
 import com.example.matth.finalapp.MenuActivity;
 import com.example.matth.finalapp.R;
+import com.example.matth.finalapp.token.TokenManager;
 
 
 /**
@@ -34,7 +39,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                TokenManager tokenManager = new TokenManager(PreferenceManager.getDefaultSharedPreferences(getActivity()));
+                TokenManager tokenManager = new TokenManager();
                 ((MenuActivity) getActivity()).setLoggedin(false);
                 tokenManager.removeToken();
                 if(((MenuActivity) getActivity()).getAuthToken()==""){

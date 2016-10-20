@@ -3,10 +3,13 @@ package com.example.matth.finalapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,13 +17,16 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.matth.finalapp.fragments.AddItemFragment;
 import com.example.matth.finalapp.fragments.AddRestaurantFragment;
 import com.example.matth.finalapp.fragments.ChangeMenuFragment;
 import com.example.matth.finalapp.fragments.HomeMenuFragment;
@@ -349,5 +355,23 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
     private void turnMenuOn() {
         toggleLeft.setDrawerIndicatorEnabled(true);
         toggleLeft.syncState();
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void loadListOfBusinesses() {
+
+    }
+
+    public void lockDrawer() {
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+    }
+
+    public void unlockDrawer() {
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
     }
 }
