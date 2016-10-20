@@ -63,6 +63,15 @@ public class BaseActivity extends AppCompatActivity {
         return preferences.getString("userEmail","");
     }
 
+    public void setBusinessId(int id){
+        System.out.println("The id of the restaurant is " + id);
+        editor.putInt("businessId",id);
+        editor.commit();
+    }
+
+
+    public int getBusinessId(){ return preferences.getInt("businessId",-1); }
+
     public void setBusiness(Business business){
         Gson gson = new Gson();
         String json = gson.toJson(business);

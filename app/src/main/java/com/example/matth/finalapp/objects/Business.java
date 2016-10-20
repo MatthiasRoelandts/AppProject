@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Business {
 
+    private int id;
     private String name;
     private String info;
     private String address;
@@ -27,7 +28,12 @@ public class Business {
         this.postal = postal;
     }
 
-    public Business(){}
+    public Business() {
+    }
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 
     public String getOwnerEmail() {
         return ownerEmail;

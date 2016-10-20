@@ -15,6 +15,7 @@ import com.example.matth.finalapp.MenuActivity;
 import com.example.matth.finalapp.R;
 import com.example.matth.finalapp.objects.Business;
 import com.example.matth.finalapp.objects.Owner;
+import com.google.android.gms.tasks.RuntimeExecutionException;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -25,6 +26,7 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -263,17 +265,23 @@ public class AddRestaurantFragment extends Fragment implements View.OnClickListe
             // Add the Jackson and String message converters
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
-            ResponseEntity response = null;
+            ResponseEntity<Business> response = null;
             HttpHeaders header = new HttpHeaders();
             header.add("Authorization", token);
 
             try {
                 HttpEntity<Business> request = new HttpEntity(business, header);
                 response = restTemplate.exchange(url, HttpMethod.POST, request, Business.class);
+
+                //If adding your first restaurant set the id and name
+                if(args == "login") {
+                    ((MenuActivity) getActivity()).setBusinessId(response.getBody().getId());
+                    //((MenuActivity) getActivity()).setBusinessName(response.getBody().getName());
+                }
                 status = response.getStatusCode();
                 System.out.println("success");
 
-            } catch (ResourceAccessException e) {
+            } catch (RestClientException e) {
                 status = HttpStatus.BAD_REQUEST;
             }
             return status;
@@ -286,12 +294,15 @@ public class AddRestaurantFragment extends Fragment implements View.OnClickListe
             if (status == HttpStatus.CREATED) {
                 //If coming from login go to home restaurant otherwise return to restaurants page
                 if(args == "login"){
-                    getFragmentManager().beginTransaction()
-                            .replace(((ViewGroup) getView().getParent()).getId(),new HomeMenuFragment())
-                            .commit();
+                    System.out.println("coming from login");
+                    ((MenuActivity) getActivity()).switchToFragment(new HomeMenuFragment());
+
                 }else{
                     getFragmentManager().popBackStack();
                 }
+            }
+            if(status == HttpStatus.BAD_REQUEST){
+                ((MenuActivity) getActivity()).makeToast("Server response failed");
             }
         }
     }

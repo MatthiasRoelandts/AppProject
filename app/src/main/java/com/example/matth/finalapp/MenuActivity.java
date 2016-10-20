@@ -62,18 +62,15 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        getBusinessesAndRedirect();
-
-
         //add toolbar
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         myToolbar.setTitleTextColor(Color.WHITE);
+        myToolbar.setVisibility(View.INVISIBLE);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
+
         //TODO based if the user is an owner or not this function changes
-
         myToolbar.setTitle("Menu");
-
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         toggleLeft = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
@@ -91,6 +88,8 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         business_name = (TextView) header.findViewById(R.id.header_business_name);
         user_name = (TextView) header.findViewById(R.id.header_user_name);
         user_name.setText(getUserEmail());
+
+        getBusinessesAndRedirect();
 
     }
 
@@ -173,6 +172,8 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
             args.putString("parentpage", "login");
             switchToFragment(new RestaurantFragment(), args);
         }
+
+        myToolbar.setVisibility(View.VISIBLE);
     }
 
     public void switchToFragment(Fragment fragment) {
