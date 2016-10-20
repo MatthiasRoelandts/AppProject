@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_library_books_black_24dp"
+        android:title="Menu" />
+    <item
+        android:id="@+id/nav_reservation"
+        android:title="Make Reservation"
+        android:icon="@drawable/ic_date_range_black_24dp" />
+    <item
+        android:id="@+id/nav_orders"
+        android:title="Orders"
+        android:icon="@drawable/ic_toc_black_24dp" />
+    <item
+        android:id="@+id/nav_menu_3"
+        android:title="More">
+        <menu>
+            <item
+                android:id="@+id/nav_kitchen"
+                android:icon="@drawable/ic_room_service_black_24dp"
+                android:title="Kitchen" />
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_settings_black_24dp"
+                android:title="Settings" />
+            <item
+                android:id="@+id/nav_history"
+                android:icon="@drawable/ic_timeline_black_24dp"
+                android:title="Statistics" />
+        </menu>
+    </item>
+</menu>
