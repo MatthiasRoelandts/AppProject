@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.example.matth.finalapp.fragments.AddItemFragment;
 import com.example.matth.finalapp.fragments.AddRestaurantFragment;
+import com.example.matth.finalapp.fragments.BusinessDetailFragment;
 import com.example.matth.finalapp.fragments.ChangeMenuFragment;
 import com.example.matth.finalapp.fragments.HomeMenuFragment;
 import com.example.matth.finalapp.fragments.KitchenFragment;
@@ -39,6 +40,7 @@ import com.example.matth.finalapp.fragments.WaiterDetailFragment;
 import com.example.matth.finalapp.fragments.WaitersFragment;
 import com.example.matth.finalapp.objects.Business;
 import com.example.matth.finalapp.objects.Owner;
+import com.google.gson.Gson;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -230,7 +232,6 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void onBackPressed() {
-        Log.d("backpressed", "backstand = "+ getSupportFragmentManager().getBackStackEntryCount());
         if(getSupportFragmentManager().getBackStackEntryCount() > 0) {
             getSupportFragmentManager().popBackStack();
             turnMenuOn();
@@ -330,6 +331,20 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         fragmentTransaction.commit();
     }
 
+    public void changeToBusinessDetailFragment(Business business) {
+        turnMenuOff();
+        Gson gson = new Gson();
+        String businessString = gson.toJson(business);
+        Bundle bundle = new Bundle();
+        bundle.putString("business", businessString);
+        BusinessDetailFragment businessDetail = new BusinessDetailFragment();
+        businessDetail.setArguments(bundle);
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout, businessDetail);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
     public void changeToChangeMenuFragment() {
         turnMenuOn();
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -374,4 +389,6 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
     public void unlockDrawer() {
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
     }
+
+
 }

@@ -67,10 +67,13 @@ public class RestaurantFragment extends Fragment implements View.OnClickListener
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int itemPosition = position;
-                String itemValue = (String) listView.getItemAtPosition(position);
+                Business itemValue = (Business) listView.getItemAtPosition(position);
+                ((MenuActivity) getActivity()).changeToBusinessDetailFragment(itemValue);
             }
         });
-
+        restaurantList = new ArrayList<>();
+        restaurantStringList = new ArrayList<>();
+        getRestaurants();
         return rootView;
 
     }
@@ -79,7 +82,7 @@ public class RestaurantFragment extends Fragment implements View.OnClickListener
         for(Business restaurant: restaurantList) {
             restaurantStringList.add(restaurant.getName());
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, restaurantStringList);
+        ArrayAdapter<Business> adapter = new ArrayAdapter<Business>(getContext(), android.R.layout.simple_list_item_1, restaurantList);
         listView.setAdapter(adapter);
     }
 
