@@ -3,15 +3,35 @@ package com.example.matth.finalapp.fragments;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.example.matth.finalapp.MenuActivity;
 import com.example.matth.finalapp.R;
+import com.example.matth.finalapp.objects.Business;
+import com.example.matth.finalapp.objects.Itemcategory;
+import com.example.matth.finalapp.objects.Owner;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -19,11 +39,13 @@ import com.example.matth.finalapp.R;
  */
 public class RestaurantFragment extends Fragment implements View.OnClickListener {
 
-
     public static String DATA_RECEIVE = "";
     private FragmentTransaction fragmentTransaction;
     private String args;
 
+    ListView listView;
+    List<Business> restaurantList;
+    List<String> restaurantStringList;
 
     public RestaurantFragment() {
         // Required empty public constructor
@@ -39,8 +61,26 @@ public class RestaurantFragment extends Fragment implements View.OnClickListener
             args = getArguments().getString("parentpage");
         }
 
+        listView = (ListView) rootView.findViewById(R.id.restaurant_list);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int itemPosition = position;
+                String itemValue = (String) listView.getItemAtPosition(position);
+            }
+        });
+
         return rootView;
 
+    }
+
+    private void fillRestaurantList() {
+        for(Business restaurant: restaurantList) {
+            restaurantStringList.add(restaurant.getName());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, restaurantStringList);
+        listView.setAdapter(adapter);
     }
 
     @Override
@@ -96,12 +136,37 @@ public class RestaurantFragment extends Fragment implements View.OnClickListener
         }
     }
 
-    private class GetRestaurants extends AsyncTask<Object, Void, Object> {
+    private void getRestaurants() {
+        new AsyncTask<Void, Object, List<Business>>() {
+            @Override
+            protected List<Business> doInBackground(Void... params) {
+                final String url = "http://10.0.2.2:8080/getbusinesses";
+                HttpStatus status = null;
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
+                ResponseEntity response = null;
+                List<Business> list = null;
+                HttpHeaders header = new HttpHeaders();
+                header.add("Authorization", ((MenuActivity) getActivity()).getAuthToken());
+                try {
+                    HttpEntity<Owner> request = new HttpEntity(header);
+                    response = restTemplate.exchange(url, HttpMethod.GET, request, Business[].class);
+                    status = response.getStatusCode();
+                    list = Arrays.asList((Business[]) response.getBody());
+                } catch (HttpClientErrorException e) {
+                    if (e.getStatusCode() == HttpStatus.BAD_REQUEST) {
 
+                    }
+                }
+                return list;
+            }
 
-        @Override
-        protected Object doInBackground(Object... params) {
-            return null;
-        }
+            @Override
+            protected void onPostExecute(List<Business> list) {
+                restaurantList = list;
+                fillRestaurantList();
+            }
+        }.execute();
     }
 }

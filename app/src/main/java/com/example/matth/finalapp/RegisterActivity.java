@@ -126,7 +126,7 @@ public class RegisterActivity extends BaseActivity {
             @Override
             protected HttpStatus doInBackground(Void... params) {
 
-                    final String url = "http://10.0.2.2:8080/auth/register/owner";
+                    final String url = "http://10.0.2.2:8080/auth/user/register/owner";
                     HttpStatus status = null;
                     RestTemplate restTemplate = new RestTemplate();
                     // Add the Jackson and String message converters
