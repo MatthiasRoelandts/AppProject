@@ -2,12 +2,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.matth.finalapp.fragments.RestaurantFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.matth.finalapp.fragments.AddRestaurantFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+   <!-- <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Here you can chose a different restaurant or make a new one" />
+        android:fitsSystemWindows="true">-->
 
+    <ProgressBar
+        android:id="@+id/addbusiness_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Here come your list of businesses"/>
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floating_add_business_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:layout_margin="16dp"
+            android:clickable="true"
+            android:src="@drawable/ic_add_white_24dp"
+            app:layout_anchorGravity="bottom|end"/>
 </FrameLayout>
+
+
+    <!-- TODO: Update blank fragment layout -->

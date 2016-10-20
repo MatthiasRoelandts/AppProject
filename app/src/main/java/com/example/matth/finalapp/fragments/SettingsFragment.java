@@ -1,19 +1,14 @@
 package com.example.matth.finalapp.fragments;
 
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
-import com.example.matth.finalapp.LoginActivity;
 import com.example.matth.finalapp.MenuActivity;
 import com.example.matth.finalapp.R;
-import com.example.matth.finalapp.token.TokenManager;
 
 
 /**

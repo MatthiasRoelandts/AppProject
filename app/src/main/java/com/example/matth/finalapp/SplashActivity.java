@@ -1,5 +1,6 @@
 package com.example.matth.finalapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -20,6 +21,7 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        final Activity splashActivity = this;
 
 
         /* New Handler to start the Menu/Login-Activity
@@ -29,19 +31,19 @@ public class SplashActivity extends BaseActivity {
             public void run() {
 
                 Intent mainIntent;
-
                 /* Create an Intent that will start the Menu-Activity or Login-Activity based on login status of the user. */
                 if(getLoggedin() == false){
                     System.out.println("The user is NOT logged in");
-                    mainIntent = new Intent(SplashActivity.this,LoginActivity.class);
+                    mainIntent = new Intent(splashActivity,LoginActivity.class);
 
                 }else{
                     System.out.println("The user is logged in");
-                    mainIntent = new Intent(SplashActivity.this,MenuActivity.class);
+                    /**/
+                    mainIntent = new Intent(splashActivity,MenuActivity.class);
 
                 }
-                SplashActivity.this.startActivity(mainIntent);
-                SplashActivity.this.finish();
+                splashActivity.startActivity(mainIntent);
+                splashActivity.finish();
             }
         }, SPLASH_DISPLAY_LENGTH);
 
