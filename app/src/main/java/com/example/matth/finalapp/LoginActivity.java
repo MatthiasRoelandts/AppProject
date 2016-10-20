@@ -165,8 +165,9 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
             //Authenticate the user
             User user = new User(email,password);
             System.out.println("Email" + email + " Password" + password);
-            //Pass shared preferences to tokenmanager so the token can be saved there
-            TokenManager tokenManager = new TokenManager(PreferenceManager.getDefaultSharedPreferences(this));
+
+            //Pass reference from the loginactivity to the tokenmanager
+            TokenManager tokenManager = new TokenManager();
             tokenManager.getToken(user,this);
             System.out.println("Login activity : the auth token in shared preferences is " + getAuthToken());
         }

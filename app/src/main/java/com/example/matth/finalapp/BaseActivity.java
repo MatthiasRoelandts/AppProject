@@ -1,52 +1,133 @@
 package com.example.matth.finalapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
+import com.example.matth.finalapp.objects.Business;
 import com.fasterxml.jackson.databind.deser.Deserializers;
+import com.google.gson.Gson;
 
 /**
  * Created by michael on 11/10/2016.
  */
-public class BaseActivity extends AppCompatActivity{
+public class BaseActivity extends AppCompatActivity {
 
 
     private SharedPreferences preferences;
     private String authToken;
+    private SharedPreferences.Editor editor;
+    private Gson gson;
+
+    //this object holds the user information this can be an owner or personel
+    private Object user;
 
     /*
     * TODO check if the token has expired or not by making a request to the  server otherwise return to the login page
     * */
 
-   public boolean getLoggedin() {
+    @Override
+    protected void onCreate(Bundle savedInstances) {
+        super.onCreate(savedInstances);
+        System.out.println("Activity created !!!");
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = preferences.edit();
+    }
 
-       SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        return preferences.getBoolean("isLoggedin",false);
-   }
+    public boolean getLoggedin() {
+
+        return preferences.getBoolean("isLoggedin", false);
+    }
 
     public void setLoggedin(boolean loggedin) {
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = preferences.edit();
         System.out.println("The value set for logged in is" + loggedin);
-        editor.putBoolean("isLoggedin",loggedin);
+        editor.putBoolean("isLoggedin", loggedin);
         editor.apply();
-        System.out.println("The user is logged in ? " +getLoggedin() );
+        System.out.println("The user is logged in ? " + getLoggedin());
 
     }
 
+    public void setUserEmail(String email){
+        editor.putString("userEmail",email);
+        editor.apply();
+    }
+
+    public String getUserEmail(){
+        return preferences.getString("userEmail","");
+    }
+
+    public void setBusinessId(int id){
+        System.out.println("The id of the restaurant is " + id);
+        editor.putInt("businessId",id);
+        editor.commit();
+    }
+
+
+    public int getBusinessId(){ return preferences.getInt("businessId",-1); }
+
+    public void setBusiness(Business business){
+        Gson gson = new Gson();
+        String json = gson.toJson(business);
+        editor.putString("currentBusiness",json);
+        editor.commit();
+    }
+
+    public Business getBusiness(){
+
+        Gson gson = new Gson();
+        String json  = preferences.getString("currentBusiness","");
+        Business business = gson.fromJson(json,Business.class);
+        return business;
+    }
+
     public String getAuthToken() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        return preferences.getString("authToken","");
+
+        return preferences.getString("authToken", "");
     }
 
 
     public void setAuthToken(String authToken) {
         this.authToken = authToken;
+    }
+
+
+    /*
+    * Save the token in the shared preferences when the user is authenticated
+    *
+    * */
+    public void saveToken(String authToken) {
+
+        editor.putString("authToken", authToken);
+        editor.apply();
+    }
+    /*
+    * When the user logs out the auth token needs to be removed
+    *
+    * */
+    public void removeToken() {
+
+        editor.putString("authToken", "");
+        editor.apply();
+    }
+
+    public void makeSnackbar(View view,CharSequence msg){
+        Snackbar snackbar = Snackbar
+                .make(view,msg,Snackbar.LENGTH_LONG);
+        snackbar.show();
+    }
+
+    public void makeToast(CharSequence text){
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_LONG;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
 

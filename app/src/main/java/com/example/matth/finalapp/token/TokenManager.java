@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
+import com.example.matth.finalapp.BaseActivity;
 import com.example.matth.finalapp.LoginActivity;
 import com.example.matth.finalapp.MenuActivity;
 import com.example.matth.finalapp.objects.User;
@@ -21,16 +22,11 @@ import org.springframework.web.client.RestTemplate;
 /**
  * Created by michael on 7/10/2016.
  */
-public class TokenManager {
-
-    SharedPreferences preferences;
+public class TokenManager extends BaseActivity {
 
 
-    public TokenManager(SharedPreferences preferences){
-        this.preferences = preferences;
-    }
 
- public void getToken(User user, LoginActivity reference){
+    public void getToken(final User user, LoginActivity reference) {
 
 
         new AsyncTask<Object, Void, Object[]>() {
@@ -39,8 +35,7 @@ public class TokenManager {
             Object[] responseArray = new Object[3];
 
             @Override
-            protected Object[] doInBackground(Object... params)
-            {
+            protected Object[] doInBackground(Object... params) {
                 User user = (User) params[0];
                 loginActivity = (LoginActivity) params[1];
 
@@ -57,18 +52,18 @@ public class TokenManager {
                 HttpEntity<User> request = new HttpEntity<User>(user);
 
                 try {
-                    ResponseEntity<JwtAuthenticationToken> response = restTemplate.exchange(url, HttpMethod.POST,request,JwtAuthenticationToken.class);
+                    ResponseEntity<JwtAuthenticationToken> response = restTemplate.exchange(url, HttpMethod.POST, request, JwtAuthenticationToken.class);
                     System.out.println("The status code is " + response.getStatusCode() + "The body is " + response.getBody() + "The headers are " + response.getHeaders());
                     success = true;
                     token = response.getBody().getToken();
 
-                }catch(HttpClientErrorException errorException){
-                    if(errorException.getStatusCode() == HttpStatus.BAD_REQUEST){
+                } catch (HttpClientErrorException errorException) {
+                    if (errorException.getStatusCode() == HttpStatus.BAD_REQUEST) {
 
                         error = "Username and password combination not found !";
                         System.out.println(error);
                     }
-                }catch (ResourceAccessException e){
+                } catch (ResourceAccessException e) {
                     error = "Unable to access server";
                     System.out.println(error);
                 }
@@ -81,49 +76,30 @@ public class TokenManager {
             }
 
             @Override
-            protected void onPostExecute(Object[] result){
+            protected void onPostExecute(Object[] result) {
 
                 //login successfull
-                if((Boolean) result[0] == true){
-                    saveToken((String) result[2]);
+                if ((Boolean) result[0] == true) {
+
+                    loginActivity.saveToken((String) result[2]);
+                    loginActivity.setUserEmail(user.getEmail());
                     //TODO redirect to homepage
-                    Intent intent = new Intent(loginActivity,MenuActivity.class);
+                    Intent intent = new Intent(loginActivity, MenuActivity.class);
                     intent.putExtra("info", "Welcome to homepage");
                     loginActivity.startActivity(intent);
                     loginActivity.showProgress(false);
                     loginActivity.setLoggedin(true);
                     loginActivity.finish();
 
-                }else{
+                } else {
                     loginActivity.showProgress(false);
                     loginActivity.makeToast((CharSequence) result[1]);
                 }
 
 
             }
-        }.execute(user,reference);
+        }.execute(user, reference);
     }
-    /*
-    * Save the token in the shared preferences when the user is authenticated
-    *
-    * */
-    public void saveToken(String authToken){
 
 
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("authToken",authToken);
-        editor.apply();
-    }
-    /*
-    * When the user logs out the auth token needs to be removed
-    *
-    * */
-
-    public void removeToken(){
-
-
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("authToken","");
-        editor.apply();
-    }
 }

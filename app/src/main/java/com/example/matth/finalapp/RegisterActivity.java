@@ -111,10 +111,6 @@ public class RegisterActivity extends BaseActivity {
 
             register();
         }
-
-
-
-
     }
 
     public void register(){
@@ -126,8 +122,6 @@ public class RegisterActivity extends BaseActivity {
                 owner = new Owner(rEmailView.getText().toString(),rPasswordView.getText().toString());
                 owner.setName(rFirstNameView.getText().toString());
                 owner.setLastname(rLastNameView.getText().toString());
-
-
             }
             @Override
             protected HttpStatus doInBackground(Void... params) {
