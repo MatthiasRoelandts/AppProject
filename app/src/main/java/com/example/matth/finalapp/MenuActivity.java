@@ -1,30 +1,24 @@
 package com.example.matth.finalapp;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.matth.finalapp.fragments.AddItemFragment;
 import com.example.matth.finalapp.fragments.AddRestaurantFragment;
@@ -35,8 +29,8 @@ import com.example.matth.finalapp.fragments.OrdersFragment;
 import com.example.matth.finalapp.fragments.ReservationFragment;
 import com.example.matth.finalapp.fragments.RestaurantFragment;
 import com.example.matth.finalapp.fragments.SettingsFragment;
-import com.example.matth.finalapp.fragments.WaiterDetailFragment;
-import com.example.matth.finalapp.fragments.WaitersFragment;
+import com.example.matth.finalapp.fragments.personnel.WaiterDetailFragment;
+import com.example.matth.finalapp.fragments.personnel.WaitersFragment;
 import com.example.matth.finalapp.objects.Business;
 import com.example.matth.finalapp.objects.Owner;
 
@@ -49,12 +43,11 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-import org.w3c.dom.Text;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class MenuActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, AddRestaurantFragment.OnFragmentInteractionListener {
+public class    MenuActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, AddRestaurantFragment.OnFragmentInteractionListener {
 
     ActionBarDrawerToggle toggleLeft;
     DrawerLayout drawerLayout;
@@ -92,6 +85,7 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         toggleLeft.syncState();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.menuLeft);
         navigationView.setNavigationItemSelectedListener(this);
@@ -142,6 +136,7 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
                 HttpHeaders header = new HttpHeaders();
                 header.add("Authorization", token);
                 try {
+
                     HttpEntity<Owner> request = new HttpEntity(header);
                     response = restTemplate.exchange(url, HttpMethod.GET, request, Business[].class);
                     status = response.getStatusCode();
@@ -209,6 +204,12 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         fragmentTransaction.commit();
     }
 
+    public void switchToFragmentSaveBack(Fragment fragment) {
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -230,13 +231,21 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void onBackPressed() {
+        View view = this.getCurrentFocus();
         Log.d("backpressed", "backstand = "+ getSupportFragmentManager().getBackStackEntryCount());
+
         if(getSupportFragmentManager().getBackStackEntryCount() > 0) {
             getSupportFragmentManager().popBackStack();
             turnMenuOn();
         } else {
             super.onBackPressed();
         }
+    }
+
+    /*Hides the keyboard when pressing the back button returning to a fragment*/
+    public static void hideKeyboardFrom(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     public void closeLeftDrawer() {
@@ -347,15 +356,6 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         fragmentTransaction.commit();
     }
 
-    private void turnMenuOff() {
-        toggleLeft.setDrawerIndicatorEnabled(false);
-        toggleLeft.syncState();
-    }
-
-    private void turnMenuOn() {
-        toggleLeft.setDrawerIndicatorEnabled(true);
-        toggleLeft.syncState();
-    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {
@@ -366,6 +366,18 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
     public void loadListOfBusinesses() {
 
     }
+
+
+    public void turnMenuOff() {
+        toggleLeft.setDrawerIndicatorEnabled(false);
+        toggleLeft.syncState();
+    }
+
+    public void turnMenuOn() {
+        toggleLeft.setDrawerIndicatorEnabled(true);
+        toggleLeft.syncState();
+    }
+
 
     public void lockDrawer() {
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);

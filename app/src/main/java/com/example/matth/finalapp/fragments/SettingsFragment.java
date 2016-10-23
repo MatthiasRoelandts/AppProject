@@ -40,7 +40,6 @@ public class SettingsFragment extends Fragment {
             public void onClick(View v) {
 
                 TokenManager tokenManager = new TokenManager();
-                ((MenuActivity) getActivity()).setLoggedin(false);
                 tokenManager.removeToken();
                 if(((MenuActivity) getActivity()).getAuthToken()==""){
                     Intent intent = new Intent(getActivity(),LoginActivity.class  );

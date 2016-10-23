@@ -40,20 +40,6 @@ public class BaseActivity extends AppCompatActivity {
         editor = preferences.edit();
     }
 
-    public boolean getLoggedin() {
-
-        return preferences.getBoolean("isLoggedin", false);
-    }
-
-    public void setLoggedin(boolean loggedin) {
-
-        System.out.println("The value set for logged in is" + loggedin);
-        editor.putBoolean("isLoggedin", loggedin);
-        editor.apply();
-        System.out.println("The user is logged in ? " + getLoggedin());
-
-    }
-
     public void setUserEmail(String email){
         editor.putString("userEmail",email);
         editor.apply();

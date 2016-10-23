@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -65,8 +66,9 @@ public class HomeMenuFragment extends Fragment {
         ((MenuActivity) getActivity()).getSupportActionBar().setTitle("Menu");
         drawerLayout = (DrawerLayout) rootView.findViewById(R.id.drawerLayout2);
         expandableListView = (ExpandableListView) rootView.findViewById(R.id.expandableMenu);
-
         getMenu();
+
+
         //getWholeMenu();
         //fillList();
 

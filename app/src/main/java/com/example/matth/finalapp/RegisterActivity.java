@@ -75,9 +75,7 @@ public class RegisterActivity extends BaseActivity {
             rPasswordView.setError(getString(R.string.error_field_required));
             focusView = rPasswordView;
             cancel = true;
-
         }
-
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
@@ -126,7 +124,7 @@ public class RegisterActivity extends BaseActivity {
             @Override
             protected HttpStatus doInBackground(Void... params) {
 
-                    final String url = "http://10.0.2.2:8080/auth/user/register/owner";
+                    final String url = "http://10.0.2.2:8080/auth/user/owner";
                     HttpStatus status = null;
                     RestTemplate restTemplate = new RestTemplate();
                     // Add the Jackson and String message converters
@@ -154,6 +152,7 @@ public class RegisterActivity extends BaseActivity {
 
             @Override
             protected void onPostExecute(HttpStatus status){
+                View focusView;
                 if(status == HttpStatus.ACCEPTED){
                     Intent intent = new Intent(registerActivity,LoginActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -168,6 +167,8 @@ public class RegisterActivity extends BaseActivity {
                     rEmailView.setError(null);
                     rPasswordView.setError(null);
                     rEmailView.setError(getString(R.string.error_duplicate_email));
+                    focusView = rEmailView;
+                    focusView.requestFocus();
                 }
             }
         }.execute();

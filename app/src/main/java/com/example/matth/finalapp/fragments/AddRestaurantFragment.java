@@ -209,15 +209,15 @@ public class AddRestaurantFragment extends Fragment implements View.OnClickListe
         View focusView = null;
 
         if (TextUtils.isEmpty(businesspostal)) {
-            mBusinessAddress.setError(getString(R.string.error_field_required));
-            focusView = mBusinessAddress;
+            mBusinessPostal.setError(getString(R.string.error_field_required));
+            focusView = mBusinessPostal;
             cancel = true;
         }
 
 
         if (TextUtils.isEmpty(businesscity)) {
-            mBusinessAddress.setError(getString(R.string.error_field_required));
-            focusView = mBusinessAddress;
+            mBusinessCity.setError(getString(R.string.error_field_required));
+            focusView = mBusinessCity;
             cancel = true;
         }
 

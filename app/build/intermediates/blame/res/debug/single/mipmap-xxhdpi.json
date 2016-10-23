@@ -1,6 +1,10 @@
 [
     {
-        "merged": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\ic_launcher.png",
-        "source": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
+        "merged": "C:\\Users\\michael\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\ic_launcher.png",
+        "source": "C:\\Users\\michael\\AndroidStudioProjects\\AppProject\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\michael\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\ic_check_white_24dp.png",
+        "source": "C:\\Users\\michael\\AndroidStudioProjects\\AppProject\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_check_white_24dp.png"
     }
 ]
