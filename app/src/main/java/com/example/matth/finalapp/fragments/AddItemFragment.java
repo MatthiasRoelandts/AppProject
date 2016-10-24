@@ -31,12 +31,14 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AddItemFragment extends Fragment implements View.OnClickListener{
 
@@ -272,7 +274,7 @@ public class AddItemFragment extends Fragment implements View.OnClickListener{
             ArrayList<Object> responsArray = new ArrayList<Object>();
             @Override
             protected ArrayList<Object> doInBackground(Void... params) {
-                final String url = "http://10.0.2.2:8080/ItemCategory/all";
+                final String url = "http://10.0.2.2:8080/ItemCategory/all/{id}";
                 HttpStatus status = null;
                 RestTemplate restTemplate = new RestTemplate();
                 // Add the Jackson and String message converters
@@ -283,7 +285,10 @@ public class AddItemFragment extends Fragment implements View.OnClickListener{
                     final HttpHeaders headers = new HttpHeaders();
                     headers.add("Authorization", ((MenuActivity) getActivity()).getAuthToken());
                     HttpEntity request = new HttpEntity(headers);
-                    response = restTemplate.exchange(url, HttpMethod.GET, request, Itemcategory[].class);
+                    Map<String, Integer> categoryParams = new HashMap<String, Integer>();
+                    categoryParams.put("id", ((MenuActivity) getActivity()).getBusinessId());
+                    UriComponentsBuilder builderCategory = UriComponentsBuilder.fromHttpUrl(url);
+                    response = restTemplate.exchange(builderCategory.buildAndExpand(categoryParams).toUri(), HttpMethod.GET, request, Itemcategory[].class);
                     status = response.getStatusCode();
                     List<Itemcategory> list = new ArrayList<Itemcategory>();
                     for(Itemcategory category: response.getBody()) {
