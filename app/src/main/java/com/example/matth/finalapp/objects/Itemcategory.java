@@ -8,14 +8,14 @@ public class Itemcategory {
 
     private int id;
     private String name;
-    private int restaurant_id;
+    private int restaurantId;
 
-    public int getRestaurant_id() {
-        return restaurant_id;
+    public int getRestaurantId() {
+        return restaurantId;
     }
 
-    public void setRestaurant_id(int restaurant_id) {
-        this.restaurant_id = restaurant_id;
+    public void setRestaurantId(int restaurant_id) {
+        this.restaurantId = restaurant_id;
     }
 
     public int getId() {

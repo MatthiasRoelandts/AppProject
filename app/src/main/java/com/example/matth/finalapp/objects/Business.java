@@ -20,6 +20,7 @@ public class Business {
     private Integer rating;
     private BigDecimal revenue;
     private String ownerEmail;
+    private boolean active = false;
 
     public Business(String name, String address, String city, Integer postal) {
         this.name = name;
@@ -31,9 +32,13 @@ public class Business {
     public Business() {
     }
 
-    public int getId() { return id; }
+    public int getId() {
+        return id;
+    }
 
-    public void setId(int id) { this.id = id; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getOwnerEmail() {
         return ownerEmail;
@@ -97,6 +102,14 @@ public class Business {
 
     public void setRevenue(BigDecimal revenue) {
         this.revenue = revenue;
+    }
+
+    public boolean getActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @Override

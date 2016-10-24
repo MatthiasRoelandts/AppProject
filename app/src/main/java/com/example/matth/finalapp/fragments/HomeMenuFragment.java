@@ -153,7 +153,7 @@ public class HomeMenuFragment extends Fragment {
             ArrayList<Object> responsArray = new ArrayList<Object>();
             @Override
             protected ArrayList<Object> doInBackground(Void... params) {
-                final String urlCategory = "http://10.0.2.2:8080/ItemCategory/all";
+                final String urlCategory = "http://10.0.2.2:8080/ItemCategory/all/{id}";
                 final String urlItem = "http://10.0.2.2:8080/MenuItem/category/{id}";
                 HttpStatus status = null;
                 RestTemplate restTemplate = new RestTemplate();
@@ -166,13 +166,19 @@ public class HomeMenuFragment extends Fragment {
                     final HttpHeaders headers = new HttpHeaders();
                     headers.add("Authorization", ((MenuActivity) getActivity()).getAuthToken());
                     HttpEntity requestCategory = new HttpEntity(headers);
-                    responseCategory = restTemplate.exchange(urlCategory, HttpMethod.GET, requestCategory, Itemcategory[].class);
+                    Map<String, Integer> categoryParams = new HashMap<String, Integer>();
+                    Log.e("id of restaurant = ", Integer.toString(((MenuActivity) getActivity()).getBusinessId()));
+                    categoryParams.put("id", ((MenuActivity) getActivity()).getBusinessId());
+                    UriComponentsBuilder builderCategory = UriComponentsBuilder.fromHttpUrl(urlCategory);
+                    responseCategory = restTemplate.exchange(builderCategory.buildAndExpand(categoryParams).toUri(), HttpMethod.GET, requestCategory, Itemcategory[].class);
                     status = responseCategory.getStatusCode();
+                    Log.e("itemCategorys : ", responseCategory.getBody().toString());
                     for(Itemcategory category: responseCategory.getBody()) {
+                        Log.e("itemCategory : ", category.getName());
+                        HttpEntity request = new HttpEntity(headers);
                         Map<String, Integer> uriParams = new HashMap<String, Integer>();
                         uriParams.put("id", category.getId());
                         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlItem);
-                        HttpEntity request = new HttpEntity(headers);
                         responseItem = restTemplate.exchange(builder.buildAndExpand(uriParams).toUri(), HttpMethod.GET, request, com.example.matth.finalapp.objects.MenuItem[].class);
                         List<com.example.matth.finalapp.objects.MenuItem> list = new ArrayList<>();
                         for(com.example.matth.finalapp.objects.MenuItem item: responseItem.getBody()) {

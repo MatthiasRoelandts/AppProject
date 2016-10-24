@@ -241,6 +241,7 @@ public class AddRestaurantFragment extends BusinessBaseFragment implements View.
 
                 }else{
                     getFragmentManager().popBackStack();
+                    ((MenuActivity) getActivity()).turnMenuOn();
                 }
             }
             if(status == HttpStatus.BAD_REQUEST){

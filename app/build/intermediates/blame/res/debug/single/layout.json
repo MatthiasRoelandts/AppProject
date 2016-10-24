@@ -132,6 +132,10 @@
         "source": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\src\\main\\res\\layout\\fragment_add_restaurant.xml"
     },
     {
+        "merged": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\res\\merged\\debug\\layout\\list_business.xml",
+        "source": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\src\\main\\res\\layout\\list_business.xml"
+    },
+    {
         "merged": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_singlechoice_material.xml",
         "source": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\layout\\select_dialog_singlechoice_material.xml"
     },

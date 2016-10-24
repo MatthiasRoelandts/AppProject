@@ -1,6 +1,5 @@
 package com.example.matth.finalapp.fragments;
 
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,10 +11,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.matth.finalapp.BusinessAdapter;
 import com.example.matth.finalapp.MenuActivity;
 import com.example.matth.finalapp.R;
 import com.example.matth.finalapp.objects.Business;
-import com.example.matth.finalapp.objects.Itemcategory;
 import com.example.matth.finalapp.objects.Owner;
 
 import org.springframework.http.HttpEntity;
@@ -68,7 +67,10 @@ public class RestaurantFragment extends Fragment implements View.OnClickListener
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int itemPosition = position;
                 Business itemValue = (Business) listView.getItemAtPosition(position);
-                ((MenuActivity) getActivity()).changeToBusinessDetailFragment(itemValue);
+                ((MenuActivity) getActivity()).setBusinessId(itemValue.getId());
+                ((MenuActivity) getActivity()).setBusinessName(itemValue.getName());
+                ((MenuActivity) getActivity()).goHome();
+                //((MenuActivity) getActivity()).changeToBusinessDetailFragment(itemValue);
             }
         });
         restaurantList = new ArrayList<>();
@@ -79,10 +81,13 @@ public class RestaurantFragment extends Fragment implements View.OnClickListener
     }
 
     private void fillRestaurantList() {
-        for(Business restaurant: restaurantList) {
+        /*for(Business restaurant: restaurantList) {
             restaurantStringList.add(restaurant.getName());
-        }
+        }*/
         ArrayAdapter<Business> adapter = new ArrayAdapter<Business>(getContext(), android.R.layout.simple_list_item_1, restaurantList);
+        /*Business[] array = new Business[restaurantList.size()];
+        restaurantList.toArray(array); // fill the array
+        BusinessAdapter adapter = new BusinessAdapter(getActivity(), array);*/
         listView.setAdapter(adapter);
     }
 
@@ -90,8 +95,6 @@ public class RestaurantFragment extends Fragment implements View.OnClickListener
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         view.findViewById(R.id.floating_add_business_button).setOnClickListener(this);
-
-
     }
 
     @Override
@@ -114,7 +117,6 @@ public class RestaurantFragment extends Fragment implements View.OnClickListener
         Bundle args = getArguments();
         if (args != null && args.getString(DATA_RECEIVE) == "showList") {
             //showReceivedData.setText(args.getString(DATA_RECEIVE));
-
         }
     }
 
@@ -127,7 +129,6 @@ public class RestaurantFragment extends Fragment implements View.OnClickListener
             ((MenuActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             ((MenuActivity) getActivity()).lockDrawer();
         }
-
     }
 
     @Override

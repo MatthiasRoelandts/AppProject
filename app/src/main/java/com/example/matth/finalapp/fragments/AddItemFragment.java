@@ -156,7 +156,7 @@ public class AddItemFragment extends Fragment implements View.OnClickListener{
             protected void onPreExecute() {
                 itemcategory = new Itemcategory();
                 itemcategory.setName(newCategoryText.getText().toString());
-                itemcategory.setRestaurant_id(((MenuActivity) getActivity()).getBusinessId());
+                itemcategory.setRestaurantId(((MenuActivity) getActivity()).getBusinessId());
             }
 
             @Override

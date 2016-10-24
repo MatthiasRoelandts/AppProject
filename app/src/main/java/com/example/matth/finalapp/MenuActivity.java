@@ -79,18 +79,13 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
-        //set the main fragment
-        homeMenuFragment = new HomeMenuFragment();
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout, homeMenuFragment);
-        fragmentTransaction.commit();
-        //TODO based if the user is an owner or not this function changes
-        myToolbar.setTitle("Menu");
-
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         toggleLeft = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggleLeft);
         toggleLeft.syncState();
+
+        //set the main fragment
+        goHome();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -255,11 +250,7 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         switch (item.getItemId()) {
             case R.id.nav_home:
-                turnMenuOn();
-                fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                homeMenuFragment = new HomeMenuFragment();
-                fragmentTransaction.replace(R.id.frameLayout, homeMenuFragment);
-                fragmentTransaction.commit();
+                goHome();
                 break;
             case R.id.nav_restaurants:
                 turnMenuOn();
@@ -310,6 +301,13 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         return false;
     }
 
+    public void goHome() {
+        turnMenuOn();
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        homeMenuFragment = new HomeMenuFragment();
+        fragmentTransaction.replace(R.id.frameLayout, homeMenuFragment);
+        fragmentTransaction.commit();
+    }
 
     public void changeToWaiterDetailFragment(String name) {
         turnMenuOff();

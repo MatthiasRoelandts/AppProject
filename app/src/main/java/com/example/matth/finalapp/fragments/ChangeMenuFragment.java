@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -106,7 +107,7 @@ public class ChangeMenuFragment extends Fragment {
             ArrayList<Object> responsArray = new ArrayList<Object>();
             @Override
             protected ArrayList<Object> doInBackground(Void... params) {
-                final String urlCategory = "http://10.0.2.2:8080/ItemCategory/all";
+                final String urlCategory = "http://10.0.2.2:8080/ItemCategory/all/{id}";
                 final String urlItem = "http://10.0.2.2:8080/MenuItem/category/{id}";
                 HttpStatus status = null;
                 RestTemplate restTemplate = new RestTemplate();
@@ -119,7 +120,10 @@ public class ChangeMenuFragment extends Fragment {
                     final HttpHeaders headers = new HttpHeaders();
                     headers.add("Authorization", ((MenuActivity) getActivity()).getAuthToken());
                     HttpEntity requestCategory = new HttpEntity(headers);
-                    responseCategory = restTemplate.exchange(urlCategory, HttpMethod.GET, requestCategory, Itemcategory[].class);
+                    Map<String, Integer> categoryParams = new HashMap<String, Integer>();
+                    categoryParams.put("id", ((MenuActivity) getActivity()).getBusinessId());
+                    UriComponentsBuilder builderCategory = UriComponentsBuilder.fromHttpUrl(urlCategory);
+                    responseCategory = restTemplate.exchange(builderCategory.buildAndExpand(categoryParams).toUri(), HttpMethod.GET, requestCategory, Itemcategory[].class);
                     status = responseCategory.getStatusCode();
                     for(Itemcategory category: responseCategory.getBody()) {
                         Map<String, Integer> uriParams = new HashMap<String, Integer>();

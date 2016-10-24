@@ -1,4 +1,4 @@
-#Mon Oct 24 12:05:58 CEST 2016
+#Mon Oct 24 15:14:39 CEST 2016
 base.0=C\:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_6ca4271d0a98f290d84f985f150f2f5caec18bc4
 renamed.1=classes2.dex
 renamed.0=classes.dex
