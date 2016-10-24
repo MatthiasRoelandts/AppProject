@@ -24,7 +24,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.matth.finalapp.fragments.AddItemFragment;
 import com.example.matth.finalapp.fragments.AddRestaurantFragment;
@@ -233,6 +232,7 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public void onBackPressed() {
         if(getSupportFragmentManager().getBackStackEntryCount() > 0) {
+
             getSupportFragmentManager().popBackStack();
             turnMenuOn();
         } else {
@@ -362,12 +362,12 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         fragmentTransaction.commit();
     }
 
-    private void turnMenuOff() {
+    public void turnMenuOff() {
         toggleLeft.setDrawerIndicatorEnabled(false);
         toggleLeft.syncState();
     }
 
-    private void turnMenuOn() {
+    public void turnMenuOn() {
         toggleLeft.setDrawerIndicatorEnabled(true);
         toggleLeft.syncState();
     }

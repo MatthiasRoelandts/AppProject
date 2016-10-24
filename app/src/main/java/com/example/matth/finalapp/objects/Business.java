@@ -99,4 +99,9 @@ public class Business {
         this.revenue = revenue;
     }
 
+    @Override
+    public String toString() {
+        return this.name;
+    }
+
 }

@@ -104,6 +104,7 @@ public class RestaurantFragment extends Fragment implements View.OnClickListener
                         .replace(((ViewGroup) getView().getParent()).getId(), addRestaurantFragment)
                         .addToBackStack(null)
                         .commit();
+                ((MenuActivity) getActivity()).turnMenuOff();
         }
     }
 

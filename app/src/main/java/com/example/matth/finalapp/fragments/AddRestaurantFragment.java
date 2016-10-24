@@ -37,7 +37,7 @@ import org.springframework.web.client.RestTemplate;
  * Use the {@link AddRestaurantFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddRestaurantFragment extends Fragment implements View.OnClickListener {
+public class AddRestaurantFragment extends BusinessBaseFragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -47,11 +47,6 @@ public class AddRestaurantFragment extends Fragment implements View.OnClickListe
     private String mParam1;
     private String mParam2;
 
-    private EditText mBusinessName;
-    private EditText mBusinessAddress;
-    private EditText mBusinessCity;
-    private EditText mBusinessPostal;
-    private EditText mBusinessDescription;
     private String args;
 
     private OnFragmentInteractionListener mListener;
@@ -101,18 +96,17 @@ public class AddRestaurantFragment extends Fragment implements View.OnClickListe
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_add_restaurant, container, false);
-
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstances) {
         super.onViewCreated(view, savedInstances);
         view.findViewById(R.id.action_add_business).setOnClickListener(this);
-        mBusinessName = (EditText) view.findViewById(R.id.business_name);
-        mBusinessAddress = (EditText) view.findViewById(R.id.businaess_address);
-        mBusinessCity = (EditText) view.findViewById(R.id.business_city);
-        mBusinessPostal = (EditText) view.findViewById(R.id.business_postal);
-        mBusinessDescription = (EditText) view.findViewById(R.id.business_description);
+        name = (EditText) view.findViewById(R.id.business_name);
+        address = (EditText) view.findViewById(R.id.businaess_address);
+        city = (EditText) view.findViewById(R.id.business_city);
+        postal = (EditText) view.findViewById(R.id.business_postal);
+        description = (EditText) view.findViewById(R.id.business_description);
     }
 
     @Override
@@ -124,7 +118,6 @@ public class AddRestaurantFragment extends Fragment implements View.OnClickListe
             ((MenuActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             ((MenuActivity) getActivity()).lockDrawer();
         }
-
     }
 
     @Override
@@ -166,7 +159,6 @@ public class AddRestaurantFragment extends Fragment implements View.OnClickListe
         switch (v.getId()) {
             case R.id.action_add_business:
                 attemptAddBusiness();
-
         }
     }
 
@@ -186,73 +178,23 @@ public class AddRestaurantFragment extends Fragment implements View.OnClickListe
 
         //function returns to the restaurant fragment and shows the list of businesses
         public void loadListOfBusinesses();
-
     }
 
     public void attemptAddBusiness() {
 
-        // Reset errors.
-        mBusinessName.setError(null);
-        mBusinessAddress.setError(null);
-        mBusinessCity.setError(null);
-        mBusinessPostal.setError(null);
-
-        // Store values at the time of the registration attempt.
-        String businessname = mBusinessName.getText().toString();
-        String businessaddress = mBusinessAddress.getText().toString();
-        String businesscity = mBusinessCity.getText().toString();
-        String businesspostal = mBusinessPostal.getText().toString();
-        //description can be null
-        String description = mBusinessDescription.getText().toString();
-
-        boolean cancel = false;
-        View focusView = null;
-
-        if (TextUtils.isEmpty(businesspostal)) {
-            mBusinessAddress.setError(getString(R.string.error_field_required));
-            focusView = mBusinessAddress;
-            cancel = true;
-        }
-
-
-        if (TextUtils.isEmpty(businesscity)) {
-            mBusinessAddress.setError(getString(R.string.error_field_required));
-            focusView = mBusinessAddress;
-            cancel = true;
-        }
-
-
-        if (TextUtils.isEmpty(businessaddress)) {
-            mBusinessAddress.setError(getString(R.string.error_field_required));
-            focusView = mBusinessAddress;
-            cancel = true;
-        }
-        if (TextUtils.isEmpty(businessname)) {
-            mBusinessName.setError(getString(R.string.error_field_required));
-            focusView = mBusinessName;
-            cancel = true;
-        }
-
-        if (cancel) {
-            // There was an error
-            // form field with an error.
-            focusView.requestFocus();
-        } else {
+        if(checkForm() == false) {
             String ownerEmail = ((MenuActivity) getActivity()).getUserEmail();
             String authToken = ((MenuActivity) getActivity()).getAuthToken();
 
-            Business business = new Business(businessname, businessaddress, businesscity, Integer.parseInt(businesspostal));
-            business.setInfo(description);
+            Business business = new Business(name.getText().toString(), address.getText().toString(), city.getText().toString(), Integer.parseInt(postal.getText().toString()));
+            business.setInfo(description.getText().toString());
             business.setOwnerEmail(ownerEmail);
             new AddBusiness().execute(business, authToken);
-
         }
-
     }
 
 
     private class AddBusiness extends AsyncTask<Object, Void, HttpStatus> {
-
 
         @Override
         protected HttpStatus doInBackground(Object... params) {
