@@ -1211,6 +1211,7 @@ int id businaess_address 0x7f0f0103
 int id business_address 0x7f0f0109
 int id business_city 0x7f0f0104
 int id business_description 0x7f0f0106
+int id business_edit 0x7f0f0116
 int id business_name 0x7f0f0102
 int id business_postal 0x7f0f0105
 int id button 0x7f0f00ca
@@ -1243,7 +1244,6 @@ int id center 0x7f0f0031
 int id center_horizontal 0x7f0f0032
 int id center_vertical 0x7f0f0033
 int id change_restaurant 0x7f0f0108
-int id checkBox1 0x7f0f0115
 int id checkbox 0x7f0f009f
 int id chronometer 0x7f0f013b
 int id classic 0x7f0f0080
@@ -1472,7 +1472,7 @@ int id text1 0x7f0f004c
 int id text2 0x7f0f004d
 int id textSpacerNoButtons 0x7f0f009a
 int id textTitle 0x7f0f00e3
-int id textView1 0x7f0f0116
+int id textView1 0x7f0f0115
 int id textView5 0x7f0f0147
 int id textView6 0x7f0f0148
 int id textView7 0x7f0f0149

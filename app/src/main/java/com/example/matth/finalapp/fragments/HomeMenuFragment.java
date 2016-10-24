@@ -43,7 +43,6 @@ import java.util.Map;
 public class HomeMenuFragment extends Fragment {
 
     DrawerLayout drawerLayout;
-
     ExpandableListView expandableListView;
     ExpandableListAdapter expandableListAdapter;
     List<String> expandableListTitle;
@@ -67,8 +66,6 @@ public class HomeMenuFragment extends Fragment {
 
         getMenu();
         //getWholeMenu();
-        //fillList();
-
         return rootView;
     }
 
@@ -167,14 +164,11 @@ public class HomeMenuFragment extends Fragment {
                     headers.add("Authorization", ((MenuActivity) getActivity()).getAuthToken());
                     HttpEntity requestCategory = new HttpEntity(headers);
                     Map<String, Integer> categoryParams = new HashMap<String, Integer>();
-                    Log.e("id of restaurant = ", Integer.toString(((MenuActivity) getActivity()).getBusinessId()));
                     categoryParams.put("id", ((MenuActivity) getActivity()).getBusinessId());
                     UriComponentsBuilder builderCategory = UriComponentsBuilder.fromHttpUrl(urlCategory);
                     responseCategory = restTemplate.exchange(builderCategory.buildAndExpand(categoryParams).toUri(), HttpMethod.GET, requestCategory, Itemcategory[].class);
                     status = responseCategory.getStatusCode();
-                    Log.e("itemCategorys : ", responseCategory.getBody().toString());
                     for(Itemcategory category: responseCategory.getBody()) {
-                        Log.e("itemCategory : ", category.getName());
                         HttpEntity request = new HttpEntity(headers);
                         Map<String, Integer> uriParams = new HashMap<String, Integer>();
                         uriParams.put("id", category.getId());
@@ -199,7 +193,7 @@ public class HomeMenuFragment extends Fragment {
 
             @Override
             protected void onPostExecute(ArrayList<Object> objects) {
-                if((HttpStatus) objects.get(0) == HttpStatus.OK){
+                if(objects.get(0) == HttpStatus.OK){
                     fillList();
                 }
                 super.onPostExecute(objects);

@@ -205,7 +205,6 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         fragmentTransaction.commit();
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(toggleLeft.onOptionsItemSelected(item)) {

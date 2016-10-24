@@ -84,10 +84,10 @@ public class RestaurantFragment extends Fragment implements View.OnClickListener
         /*for(Business restaurant: restaurantList) {
             restaurantStringList.add(restaurant.getName());
         }*/
-        ArrayAdapter<Business> adapter = new ArrayAdapter<Business>(getContext(), android.R.layout.simple_list_item_1, restaurantList);
-        /*Business[] array = new Business[restaurantList.size()];
+        //ArrayAdapter<Business> adapter = new ArrayAdapter<Business>(getContext(), android.R.layout.simple_list_item_1, restaurantList);
+        Business[] array = new Business[restaurantList.size()];
         restaurantList.toArray(array); // fill the array
-        BusinessAdapter adapter = new BusinessAdapter(getActivity(), array);*/
+        BusinessAdapter adapter = new BusinessAdapter(getActivity(), array);
         listView.setAdapter(adapter);
     }
 

@@ -3945,6 +3945,7 @@ containing a value of this type.
         public static final int business_address=0x7f0f0109;
         public static final int business_city=0x7f0f0104;
         public static final int business_description=0x7f0f0106;
+        public static final int business_edit=0x7f0f0116;
         public static final int business_name=0x7f0f0102;
         public static final int business_postal=0x7f0f0105;
         public static final int button=0x7f0f00ca;
@@ -3977,7 +3978,6 @@ containing a value of this type.
         public static final int center_horizontal=0x7f0f0032;
         public static final int center_vertical=0x7f0f0033;
         public static final int change_restaurant=0x7f0f0108;
-        public static final int checkBox1=0x7f0f0115;
         public static final int checkbox=0x7f0f009f;
         public static final int chronometer=0x7f0f013b;
         public static final int classic=0x7f0f0080;
@@ -4206,7 +4206,7 @@ containing a value of this type.
         public static final int text2=0x7f0f004d;
         public static final int textSpacerNoButtons=0x7f0f009a;
         public static final int textTitle=0x7f0f00e3;
-        public static final int textView1=0x7f0f0116;
+        public static final int textView1=0x7f0f0115;
         public static final int textView5=0x7f0f0147;
         public static final int textView6=0x7f0f0148;
         public static final int textView7=0x7f0f0149;
