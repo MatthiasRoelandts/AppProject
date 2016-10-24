@@ -18,6 +18,14 @@ public class Business {
     private String city;
     private Integer postal;
     private Integer rating;
+
+
+    private boolean tables;
+    private boolean reservations;
+    private boolean personnel;
+    private boolean kitchen;
+
+
     private BigDecimal revenue;
     private String ownerEmail;
 
@@ -97,6 +105,38 @@ public class Business {
 
     public void setRevenue(BigDecimal revenue) {
         this.revenue = revenue;
+    }
+
+    public boolean isTables() {
+        return tables;
+    }
+    public void setTables(boolean tables) {
+        this.tables = tables;
+    }
+
+
+    public boolean isPersonnel() {
+        return personnel;
+    }
+
+    public void setPersonnel(boolean personnel) {
+        this.personnel = personnel;
+    }
+
+    public boolean isKitchen() {
+        return kitchen;
+    }
+
+    public void setKitchen(boolean kitchen) {
+        this.kitchen = kitchen;
+    }
+
+    public boolean isReservations() {
+        return reservations;
+    }
+
+    public void setReservations(boolean reservations) {
+        this.reservations = reservations;
     }
 
 }

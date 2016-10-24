@@ -14,6 +14,9 @@ public class Personnel extends User {
 
     public Personnel(String email,String password){super(email,password);}
 
+    public Personnel(){}
+
+
     private double hourly_salary;
     private Time hours_worked;
     private String job_description;

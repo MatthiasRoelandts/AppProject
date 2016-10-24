@@ -1,6 +1,7 @@
 package com.example.matth.finalapp;
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
@@ -15,6 +16,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -43,6 +45,7 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.w3c.dom.Text;
 
 import java.util.Arrays;
 import java.util.List;
@@ -54,6 +57,7 @@ public class    MenuActivity extends BaseActivity implements NavigationView.OnNa
     HomeMenuFragment homeMenuFragment;
     Toolbar myToolbar;
     android.support.v4.app.FragmentTransaction fragmentTransaction;
+    Menu menu;
 
     TextView business_name;
     TextView user_name;
@@ -97,6 +101,12 @@ public class    MenuActivity extends BaseActivity implements NavigationView.OnNa
         business_name = (TextView) header.findViewById(R.id.header_business_name);
         user_name = (TextView) header.findViewById(R.id.header_user_name);
         user_name.setText(getUserEmail());
+
+        //get the menu
+        menu =  navigationView.getMenu();
+
+        MenuItem reservations = menu.findItem(R.id.nav_reservation);
+
 
         getBusinessesAndRedirect();
 
@@ -165,7 +175,6 @@ public class    MenuActivity extends BaseActivity implements NavigationView.OnNa
         int list_size = list.size();
         System.out.println("The size of the list is " + list_size);
         if (list == null) {
-
             makeToast("Server response failed");
         } else if (list_size == 0) {
 
@@ -174,10 +183,11 @@ public class    MenuActivity extends BaseActivity implements NavigationView.OnNa
             args.putString("parentpage", "login");
             switchToFragment(new AddRestaurantFragment(), args);
         } else if (list_size == 1) {
-
             //redirect to the business home page
             makeToast("Redirect to home page of restaurant");
             setBusinessName(list.get(0).getName());
+            setBusinessId(list.get(0).getId());
+            ShowBusinessSettings(list.get(0));
             switchToFragment(new HomeMenuFragment());
         } else if (list_size > 1) {
 
@@ -189,6 +199,29 @@ public class    MenuActivity extends BaseActivity implements NavigationView.OnNa
         }
 
         myToolbar.setVisibility(View.VISIBLE);
+    }
+
+    public void ShowBusinessSettings(Business business){
+
+        MenuItem kitchen = menu.findItem(R.id.nav_kitchen);
+        MenuItem reservations = menu.findItem(R.id.nav_reservation);
+        MenuItem personnel = menu.findItem(R.id.nav_waiters);
+        MenuItem tables = menu.findItem(R.id.nav_tables);
+
+        if(!business.isKitchen()){
+            kitchen.setVisible(false);
+        }
+        if(!business.isPersonnel()){
+            personnel.setVisible(false);
+        }
+        if(!business.isTables()){
+            tables.setVisible(false);
+        }
+        if(!business.isReservations()){
+            reservations.setVisible(false);
+        }
+
+
     }
 
     public void switchToFragment(Fragment fragment) {

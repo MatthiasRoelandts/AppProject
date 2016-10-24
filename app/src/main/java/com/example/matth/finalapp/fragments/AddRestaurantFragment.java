@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.example.matth.finalapp.MenuActivity;
@@ -52,6 +53,12 @@ public class AddRestaurantFragment extends Fragment implements View.OnClickListe
     private EditText mBusinessCity;
     private EditText mBusinessPostal;
     private EditText mBusinessDescription;
+
+    private CheckBox mBusinessHasTables;
+    private CheckBox mBusinessHasPersonnel;
+    private CheckBox mBusinessHasKitchenBarView;
+    private CheckBox mBusinessHasReservations;
+
     private String args;
 
     private OnFragmentInteractionListener mListener;
@@ -113,6 +120,10 @@ public class AddRestaurantFragment extends Fragment implements View.OnClickListe
         mBusinessCity = (EditText) view.findViewById(R.id.business_city);
         mBusinessPostal = (EditText) view.findViewById(R.id.business_postal);
         mBusinessDescription = (EditText) view.findViewById(R.id.business_description);
+        mBusinessHasTables = (CheckBox) view.findViewById(R.id.business_check_tables);
+        mBusinessHasPersonnel = (CheckBox) view.findViewById(R.id.business_check_personnel);
+        mBusinessHasKitchenBarView = (CheckBox) view.findViewById(R.id.business_check_kitchen_bar);
+        mBusinessHasReservations = (CheckBox) view.findViewById(R.id.business_check_reservations);
     }
 
     @Override
@@ -244,6 +255,10 @@ public class AddRestaurantFragment extends Fragment implements View.OnClickListe
             Business business = new Business(businessname, businessaddress, businesscity, Integer.parseInt(businesspostal));
             business.setInfo(description);
             business.setOwnerEmail(ownerEmail);
+            business.setTables(mBusinessHasTables.isChecked());
+            business.setPersonnel(mBusinessHasPersonnel.isChecked());
+            business.setKitchen(mBusinessHasKitchenBarView.isChecked());
+            business.setReservations(mBusinessHasReservations.isChecked());
             new AddBusiness().execute(business, authToken);
 
         }

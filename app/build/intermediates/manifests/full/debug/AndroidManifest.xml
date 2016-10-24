@@ -45,8 +45,10 @@
         </activity>
         <activity android:name="com.example.matth.finalapp.RegisterActivity" />
         <activity android:name="com.example.matth.finalapp.LoginActivity" />
-        <activity android:name="com.example.matth.finalapp.MenuActivity" />
-        <activity android:name="com.example.matth.finalapp.WaiterActivity" />
+        <activity
+            android:name="com.example.matth.finalapp.MenuActivity"
+            android:configChanges="orientation|screenSize" />
+
         <!-- Include the AdActivity and InAppPurchaseActivity configChanges and themes. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
