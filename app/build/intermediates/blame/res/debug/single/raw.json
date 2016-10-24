@@ -2,5 +2,9 @@
     {
         "merged": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\res\\merged\\debug\\raw\\gtm_analytics",
         "source": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-analytics-impl\\9.6.1\\res\\raw\\gtm_analytics"
+    },
+    {
+        "merged": "C:\\Users\\michael\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\res\\merged\\debug\\raw\\gtm_analytics",
+        "source": "C:\\Users\\michael\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-analytics-impl\\9.6.1\\res\\raw\\gtm_analytics"
     }
 ]
