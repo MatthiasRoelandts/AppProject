@@ -50,7 +50,7 @@ import org.w3c.dom.Text;
 import java.util.Arrays;
 import java.util.List;
 
-public class    MenuActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, AddRestaurantFragment.OnFragmentInteractionListener {
+public class MenuActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, AddRestaurantFragment.OnFragmentInteractionListener {
 
     ActionBarDrawerToggle toggleLeft;
     DrawerLayout drawerLayout;
@@ -58,7 +58,6 @@ public class    MenuActivity extends BaseActivity implements NavigationView.OnNa
     Toolbar myToolbar;
     android.support.v4.app.FragmentTransaction fragmentTransaction;
     Menu menu;
-
     TextView business_name;
     TextView user_name;
 
@@ -97,19 +96,14 @@ public class    MenuActivity extends BaseActivity implements NavigationView.OnNa
         final Activity menuActivity = this;
 
         //set business and username variables -> are in nav header
-        View header=  navigationView.getHeaderView(0);
+        View header = navigationView.getHeaderView(0);
         business_name = (TextView) header.findViewById(R.id.header_business_name);
         user_name = (TextView) header.findViewById(R.id.header_user_name);
         user_name.setText(getUserEmail());
 
-        //get the menu
-        menu =  navigationView.getMenu();
-
-        MenuItem reservations = menu.findItem(R.id.nav_reservation);
-
-
+        //get the navigation menu
+        menu = navigationView.getMenu();
         getBusinessesAndRedirect();
-
     }
 
     /*
@@ -126,7 +120,7 @@ public class    MenuActivity extends BaseActivity implements NavigationView.OnNa
         new AsyncTask<Void, Object, List<Business>>() {
 
 
-        //show only the right menu items
+            //show only the right menu items
         /*MenuItem manageRestaurants = (MenuItem) findViewById(R.id.nav_restaurants);
         manageRestaurants.setVisible(false);
         this.invalidateOptionsMenu();*/
@@ -201,26 +195,25 @@ public class    MenuActivity extends BaseActivity implements NavigationView.OnNa
         myToolbar.setVisibility(View.VISIBLE);
     }
 
-    public void ShowBusinessSettings(Business business){
+    public void ShowBusinessSettings(Business business) {
 
         MenuItem kitchen = menu.findItem(R.id.nav_kitchen);
         MenuItem reservations = menu.findItem(R.id.nav_reservation);
         MenuItem personnel = menu.findItem(R.id.nav_waiters);
         MenuItem tables = menu.findItem(R.id.nav_tables);
 
-        if(!business.isKitchen()){
+        if (!business.isKitchen()) {
             kitchen.setVisible(false);
         }
-        if(!business.isPersonnel()){
+        if (!business.isPersonnel()) {
             personnel.setVisible(false);
         }
-        if(!business.isTables()){
+        if (!business.isTables()) {
             tables.setVisible(false);
         }
-        if(!business.isReservations()){
+        if (!business.isReservations()) {
             reservations.setVisible(false);
         }
-
 
     }
 
@@ -246,14 +239,14 @@ public class    MenuActivity extends BaseActivity implements NavigationView.OnNa
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(toggleLeft.onOptionsItemSelected(item)) {
-            if(homeMenuFragment !=null) {
+        if (toggleLeft.onOptionsItemSelected(item)) {
+            if (homeMenuFragment != null) {
                 homeMenuFragment.closeRightDrawer();
             }
             return true;
         }
-        if(item.getItemId() == android.R.id.home) {
-            if(getSupportFragmentManager().getBackStackEntryCount() > 0) {
+        if (item.getItemId() == android.R.id.home) {
+            if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
                 getSupportFragmentManager().popBackStack();
                 turnMenuOn();
             }
@@ -265,9 +258,9 @@ public class    MenuActivity extends BaseActivity implements NavigationView.OnNa
     @Override
     public void onBackPressed() {
         View view = this.getCurrentFocus();
-        Log.d("backpressed", "backstand = "+ getSupportFragmentManager().getBackStackEntryCount());
+        Log.d("backpressed", "backstand = " + getSupportFragmentManager().getBackStackEntryCount());
 
-        if(getSupportFragmentManager().getBackStackEntryCount() > 0) {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
             getSupportFragmentManager().popBackStack();
             turnMenuOn();
         } else {
@@ -285,7 +278,7 @@ public class    MenuActivity extends BaseActivity implements NavigationView.OnNa
         drawerLayout.closeDrawers();
     }
 
-    public void setBusinessName(String businessName){
+    public void setBusinessName(String businessName) {
         this.business_name.setText(businessName);
     }
 
@@ -344,8 +337,8 @@ public class    MenuActivity extends BaseActivity implements NavigationView.OnNa
                 changeToChangeMenuFragment();
                 break;
         }
-        DrawerLayout dl = (DrawerLayout)  findViewById(R.id.drawerLayout);
-        if(dl.isDrawerOpen(GravityCompat.START)) {
+        DrawerLayout dl = (DrawerLayout) findViewById(R.id.drawerLayout);
+        if (dl.isDrawerOpen(GravityCompat.START)) {
             dl.closeDrawer(GravityCompat.START);
         }
         return false;
