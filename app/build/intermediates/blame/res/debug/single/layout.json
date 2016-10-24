@@ -4,16 +4,16 @@
         "source": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\layout\\support_simple_spinner_dropdown_item.xml"
     },
     {
-        "merged": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\res\\merged\\debug\\layout\\cast_help_text.xml",
-        "source": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\9.6.1\\res\\layout\\cast_help_text.xml"
+        "merged": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_menu.xml",
+        "source": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\src\\main\\res\\layout\\activity_menu.xml"
     },
     {
         "merged": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item.xml",
         "source": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\24.2.1\\res\\layout\\design_navigation_item.xml"
     },
     {
-        "merged": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_menu.xml",
-        "source": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\src\\main\\res\\layout\\activity_menu.xml"
+        "merged": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\res\\merged\\debug\\layout\\cast_help_text.xml",
+        "source": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\9.6.1\\res\\layout\\cast_help_text.xml"
     },
     {
         "merged": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_menu_item.xml",

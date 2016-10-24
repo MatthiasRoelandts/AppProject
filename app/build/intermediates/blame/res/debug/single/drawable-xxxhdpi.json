@@ -1,11 +1,11 @@
 [
     {
-        "merged": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_store_black_24dp.png",
-        "source": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\src\\main\\res\\drawable-xxxhdpi\\ic_store_black_24dp.png"
-    },
-    {
         "merged": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_sentiment_very_dissatisfied_black_24dp.png",
         "source": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\src\\main\\res\\drawable-xxxhdpi\\ic_sentiment_very_dissatisfied_black_24dp.png"
+    },
+    {
+        "merged": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_store_black_24dp.png",
+        "source": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\src\\main\\res\\drawable-xxxhdpi\\ic_store_black_24dp.png"
     },
     {
         "merged": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_perm_identity_black_24dp.png",
@@ -28,12 +28,12 @@
         "source": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\src\\main\\res\\drawable-xxxhdpi\\ic_credit_card_black_24dp.png"
     },
     {
-        "merged": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_sentiment_very_satisfied_black_24dp.png",
-        "source": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\src\\main\\res\\drawable-xxxhdpi\\ic_sentiment_very_satisfied_black_24dp.png"
-    },
-    {
         "merged": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_settings_black_24dp.png",
         "source": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\src\\main\\res\\drawable-xxxhdpi\\ic_settings_black_24dp.png"
+    },
+    {
+        "merged": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_sentiment_very_satisfied_black_24dp.png",
+        "source": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\src\\main\\res\\drawable-xxxhdpi\\ic_sentiment_very_satisfied_black_24dp.png"
     },
     {
         "merged": "C:\\Users\\matth\\AndroidStudioProjects\\AppProject\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_delete_black_24dp.png",
