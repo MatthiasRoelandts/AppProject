@@ -31,9 +31,13 @@ public class Business {
     public Business() {
     }
 
-    public int getId() { return id; }
+    public int getId() {
+        return id;
+    }
 
-    public void setId(int id) { this.id = id; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getOwnerEmail() {
         return ownerEmail;
@@ -97,6 +101,11 @@ public class Business {
 
     public void setRevenue(BigDecimal revenue) {
         this.revenue = revenue;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 
 }

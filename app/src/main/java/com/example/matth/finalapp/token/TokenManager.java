@@ -80,9 +80,9 @@ public class TokenManager extends BaseActivity {
 
                 //login successfull
                 if ((Boolean) result[0] == true) {
-
                     loginActivity.saveToken((String) result[2]);
                     loginActivity.setUserEmail(user.getEmail());
+                    loginActivity.setUserId(user.getId());
                     //TODO redirect to homepage
                     Intent intent = new Intent(loginActivity, MenuActivity.class);
                     intent.putExtra("info", "Welcome to homepage");
@@ -95,11 +95,7 @@ public class TokenManager extends BaseActivity {
                     loginActivity.showProgress(false);
                     loginActivity.makeToast((CharSequence) result[1]);
                 }
-
-
             }
         }.execute(user, reference);
     }
-
-
 }

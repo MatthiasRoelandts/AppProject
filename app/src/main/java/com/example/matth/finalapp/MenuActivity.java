@@ -24,10 +24,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.matth.finalapp.fragments.AddItemFragment;
 import com.example.matth.finalapp.fragments.AddRestaurantFragment;
+import com.example.matth.finalapp.fragments.BusinessDetailFragment;
 import com.example.matth.finalapp.fragments.ChangeMenuFragment;
 import com.example.matth.finalapp.fragments.HomeMenuFragment;
 import com.example.matth.finalapp.fragments.KitchenFragment;
@@ -39,6 +39,7 @@ import com.example.matth.finalapp.fragments.WaiterDetailFragment;
 import com.example.matth.finalapp.fragments.WaitersFragment;
 import com.example.matth.finalapp.objects.Business;
 import com.example.matth.finalapp.objects.Owner;
+import com.google.gson.Gson;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -78,18 +79,13 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
-        //set the main fragment
-        homeMenuFragment = new HomeMenuFragment();
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout, homeMenuFragment);
-        fragmentTransaction.commit();
-        //TODO based if the user is an owner or not this function changes
-        myToolbar.setTitle("Menu");
-
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         toggleLeft = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggleLeft);
         toggleLeft.syncState();
+
+        //set the main fragment
+        goHome();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -209,7 +205,6 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         fragmentTransaction.commit();
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(toggleLeft.onOptionsItemSelected(item)) {
@@ -230,8 +225,8 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void onBackPressed() {
-        Log.d("backpressed", "backstand = "+ getSupportFragmentManager().getBackStackEntryCount());
         if(getSupportFragmentManager().getBackStackEntryCount() > 0) {
+
             getSupportFragmentManager().popBackStack();
             turnMenuOn();
         } else {
@@ -254,11 +249,7 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         switch (item.getItemId()) {
             case R.id.nav_home:
-                turnMenuOn();
-                fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                homeMenuFragment = new HomeMenuFragment();
-                fragmentTransaction.replace(R.id.frameLayout, homeMenuFragment);
-                fragmentTransaction.commit();
+                goHome();
                 break;
             case R.id.nav_restaurants:
                 turnMenuOn();
@@ -309,6 +300,13 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         return false;
     }
 
+    public void goHome() {
+        turnMenuOn();
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        homeMenuFragment = new HomeMenuFragment();
+        fragmentTransaction.replace(R.id.frameLayout, homeMenuFragment);
+        fragmentTransaction.commit();
+    }
 
     public void changeToWaiterDetailFragment(String name) {
         turnMenuOff();
@@ -330,6 +328,20 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         fragmentTransaction.commit();
     }
 
+    public void changeToBusinessDetailFragment(Business business) {
+        turnMenuOff();
+        Gson gson = new Gson();
+        String businessString = gson.toJson(business);
+        Bundle bundle = new Bundle();
+        bundle.putString("business", businessString);
+        BusinessDetailFragment businessDetail = new BusinessDetailFragment();
+        businessDetail.setArguments(bundle);
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout, businessDetail);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
     public void changeToChangeMenuFragment() {
         turnMenuOn();
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -347,12 +359,12 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         fragmentTransaction.commit();
     }
 
-    private void turnMenuOff() {
+    public void turnMenuOff() {
         toggleLeft.setDrawerIndicatorEnabled(false);
         toggleLeft.syncState();
     }
 
-    private void turnMenuOn() {
+    public void turnMenuOn() {
         toggleLeft.setDrawerIndicatorEnabled(true);
         toggleLeft.syncState();
     }
@@ -374,4 +386,6 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
     public void unlockDrawer() {
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
     }
+
+
 }

@@ -54,36 +54,48 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
-    public void setUserEmail(String email){
-        editor.putString("userEmail",email);
+    public void setUserEmail(String email) {
+        editor.putString("userEmail", email);
         editor.apply();
     }
 
-    public String getUserEmail(){
-        return preferences.getString("userEmail","");
+    public String getUserEmail() {
+        return preferences.getString("userEmail", "");
     }
 
-    public void setBusinessId(int id){
+    public void setUserId(int id) {
+        editor.putString("userId", Integer.toString(id));
+        editor.apply();
+    }
+
+    public int getUserId() {
+        int id =  Integer.getInteger(preferences.getString("userId", "-1"));
+        return id;
+    }
+
+    public void setBusinessId(int id) {
         System.out.println("The id of the restaurant is " + id);
-        editor.putInt("businessId",id);
+        editor.putInt("businessId", id);
         editor.commit();
     }
 
 
-    public int getBusinessId(){ return preferences.getInt("businessId",-1); }
+    public int getBusinessId() {
+        return preferences.getInt("businessId", -1);
+    }
 
-    public void setBusiness(Business business){
+    public void setBusiness(Business business) {
         Gson gson = new Gson();
         String json = gson.toJson(business);
-        editor.putString("currentBusiness",json);
+        editor.putString("currentBusiness", json);
         editor.commit();
     }
 
-    public Business getBusiness(){
+    public Business getBusiness() {
 
         Gson gson = new Gson();
-        String json  = preferences.getString("currentBusiness","");
-        Business business = gson.fromJson(json,Business.class);
+        String json = preferences.getString("currentBusiness", "");
+        Business business = gson.fromJson(json, Business.class);
         return business;
     }
 
@@ -107,6 +119,7 @@ public class BaseActivity extends AppCompatActivity {
         editor.putString("authToken", authToken);
         editor.apply();
     }
+
     /*
     * When the user logs out the auth token needs to be removed
     *
@@ -117,13 +130,13 @@ public class BaseActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    public void makeSnackbar(View view,CharSequence msg){
+    public void makeSnackbar(View view, CharSequence msg) {
         Snackbar snackbar = Snackbar
-                .make(view,msg,Snackbar.LENGTH_LONG);
+                .make(view, msg, Snackbar.LENGTH_LONG);
         snackbar.show();
     }
 
-    public void makeToast(CharSequence text){
+    public void makeToast(CharSequence text) {
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_LONG;
         Toast toast = Toast.makeText(context, text, duration);

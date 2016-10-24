@@ -18,7 +18,6 @@ import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import com.example.matth.finalapp.CustomExpandableMenuAdapter;
-import com.example.matth.finalapp.ExpandableMenuPump;
 import com.example.matth.finalapp.MenuActivity;
 import com.example.matth.finalapp.R;
 import com.example.matth.finalapp.objects.Itemcategory;
@@ -44,7 +43,6 @@ import java.util.Map;
 public class HomeMenuFragment extends Fragment {
 
     DrawerLayout drawerLayout;
-
     ExpandableListView expandableListView;
     ExpandableListAdapter expandableListAdapter;
     List<String> expandableListTitle;
@@ -68,8 +66,6 @@ public class HomeMenuFragment extends Fragment {
 
         getMenu();
         //getWholeMenu();
-        //fillList();
-
         return rootView;
     }
 
@@ -154,7 +150,7 @@ public class HomeMenuFragment extends Fragment {
             ArrayList<Object> responsArray = new ArrayList<Object>();
             @Override
             protected ArrayList<Object> doInBackground(Void... params) {
-                final String urlCategory = "http://10.0.2.2:8080/ItemCategory/all";
+                final String urlCategory = "http://10.0.2.2:8080/ItemCategory/all/{id}";
                 final String urlItem = "http://10.0.2.2:8080/MenuItem/category/{id}";
                 HttpStatus status = null;
                 RestTemplate restTemplate = new RestTemplate();
@@ -167,13 +163,16 @@ public class HomeMenuFragment extends Fragment {
                     final HttpHeaders headers = new HttpHeaders();
                     headers.add("Authorization", ((MenuActivity) getActivity()).getAuthToken());
                     HttpEntity requestCategory = new HttpEntity(headers);
-                    responseCategory = restTemplate.exchange(urlCategory, HttpMethod.GET, requestCategory, Itemcategory[].class);
+                    Map<String, Integer> categoryParams = new HashMap<String, Integer>();
+                    categoryParams.put("id", ((MenuActivity) getActivity()).getBusinessId());
+                    UriComponentsBuilder builderCategory = UriComponentsBuilder.fromHttpUrl(urlCategory);
+                    responseCategory = restTemplate.exchange(builderCategory.buildAndExpand(categoryParams).toUri(), HttpMethod.GET, requestCategory, Itemcategory[].class);
                     status = responseCategory.getStatusCode();
                     for(Itemcategory category: responseCategory.getBody()) {
+                        HttpEntity request = new HttpEntity(headers);
                         Map<String, Integer> uriParams = new HashMap<String, Integer>();
                         uriParams.put("id", category.getId());
                         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlItem);
-                        HttpEntity request = new HttpEntity(headers);
                         responseItem = restTemplate.exchange(builder.buildAndExpand(uriParams).toUri(), HttpMethod.GET, request, com.example.matth.finalapp.objects.MenuItem[].class);
                         List<com.example.matth.finalapp.objects.MenuItem> list = new ArrayList<>();
                         for(com.example.matth.finalapp.objects.MenuItem item: responseItem.getBody()) {
@@ -194,7 +193,7 @@ public class HomeMenuFragment extends Fragment {
 
             @Override
             protected void onPostExecute(ArrayList<Object> objects) {
-                if((HttpStatus) objects.get(0) == HttpStatus.OK){
+                if(objects.get(0) == HttpStatus.OK){
                     fillList();
                 }
                 super.onPostExecute(objects);
