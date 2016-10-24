@@ -25,6 +25,10 @@
                 android:icon="@drawable/ic_room_service_black_24dp"
                 android:title="Kitchen" />
             <item
+                android:id="@+id/nav_tables"
+                android:icon="@drawable/ic_assignment_black_24dp"
+                android:title="Tables" />
+            <item
                 android:id="@+id/nav_waiters"
                 android:icon="@drawable/ic_perm_identity_black_24dp"
                 android:title="Manage Waiters" />

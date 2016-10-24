@@ -1,4 +1,4 @@
-package com.example.matth.finalapp.fragments;
+package com.example.matth.finalapp.fragments.personnel;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,7 +20,6 @@ public class WaiterDetailFragment extends Fragment {
     public WaiterDetailFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

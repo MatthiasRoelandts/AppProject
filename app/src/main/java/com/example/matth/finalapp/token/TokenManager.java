@@ -88,7 +88,6 @@ public class TokenManager extends BaseActivity {
                     intent.putExtra("info", "Welcome to homepage");
                     loginActivity.startActivity(intent);
                     loginActivity.showProgress(false);
-                    loginActivity.setLoggedin(true);
                     loginActivity.finish();
 
                 } else {

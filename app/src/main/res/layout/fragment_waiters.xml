@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.WaitersFragment">
+    tools:context=".fragments.personnel.WaitersFragment">
 
     <ListView
         android:id="@+id/waiter_list"
@@ -11,13 +11,13 @@
         android:layout_height="match_parent" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floating_add_business_button"
+        android:id="@+id/floating_add_personnel_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|bottom"
         android:layout_margin="16dp"
         android:clickable="true"
-        android:src="@drawable/ic_add_white_24dp"
+        android:src="@drawable/ic_person_add_white_24dp"
         app:layout_anchorGravity="bottom|end"/>
 
 </FrameLayout>

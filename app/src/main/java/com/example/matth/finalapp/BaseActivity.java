@@ -24,6 +24,7 @@ public class BaseActivity extends AppCompatActivity {
     private String authToken;
     private SharedPreferences.Editor editor;
     private Gson gson;
+    private RestCommon restCommon;
 
     //this object holds the user information this can be an owner or personel
     private Object user;
@@ -38,20 +39,7 @@ public class BaseActivity extends AppCompatActivity {
         System.out.println("Activity created !!!");
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = preferences.edit();
-    }
-
-    public boolean getLoggedin() {
-
-        return preferences.getBoolean("isLoggedin", false);
-    }
-
-    public void setLoggedin(boolean loggedin) {
-
-        System.out.println("The value set for logged in is" + loggedin);
-        editor.putBoolean("isLoggedin", loggedin);
-        editor.apply();
-        System.out.println("The user is logged in ? " + getLoggedin());
-
+        restCommon = new RestCommon(getAuthToken());
     }
 
     public void setUserEmail(String email) {
@@ -141,6 +129,14 @@ public class BaseActivity extends AppCompatActivity {
         int duration = Toast.LENGTH_LONG;
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
+    }
+
+    public RestCommon getRestCommon() {
+        return restCommon;
+    }
+
+    public void setRestCommon(RestCommon restCommon) {
+        this.restCommon = restCommon;
     }
 
 

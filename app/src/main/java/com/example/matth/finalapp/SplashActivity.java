@@ -32,7 +32,7 @@ public class SplashActivity extends BaseActivity {
 
                 Intent mainIntent;
                 /* Create an Intent that will start the Menu-Activity or Login-Activity based on login status of the user. */
-                if(getLoggedin() == false){
+                if(getAuthToken() == ""){
                     System.out.println("The user is NOT logged in");
                     mainIntent = new Intent(splashActivity,LoginActivity.class);
 
