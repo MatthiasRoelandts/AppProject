@@ -1,28 +1,25 @@
 package com.example.matth.finalapp;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.content.ClipData;
+import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.example.matth.finalapp.fragments.AddItemFragment;
@@ -35,8 +32,8 @@ import com.example.matth.finalapp.fragments.OrdersFragment;
 import com.example.matth.finalapp.fragments.ReservationFragment;
 import com.example.matth.finalapp.fragments.RestaurantFragment;
 import com.example.matth.finalapp.fragments.SettingsFragment;
-import com.example.matth.finalapp.fragments.WaiterDetailFragment;
-import com.example.matth.finalapp.fragments.WaitersFragment;
+import com.example.matth.finalapp.fragments.personnel.WaiterDetailFragment;
+import com.example.matth.finalapp.fragments.personnel.WaitersFragment;
 import com.example.matth.finalapp.objects.Business;
 import com.example.matth.finalapp.objects.Owner;
 import com.google.gson.Gson;
@@ -62,7 +59,7 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
     HomeMenuFragment homeMenuFragment;
     Toolbar myToolbar;
     android.support.v4.app.FragmentTransaction fragmentTransaction;
-
+    Menu menu;
     TextView business_name;
     TextView user_name;
 
@@ -79,15 +76,15 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
+
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         toggleLeft = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggleLeft);
         toggleLeft.syncState();
 
-        //set the main fragment
-        goHome();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.menuLeft);
         navigationView.setNavigationItemSelectedListener(this);
@@ -95,13 +92,15 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         final Activity menuActivity = this;
 
         //set business and username variables -> are in nav header
-        View header=  navigationView.getHeaderView(0);
+        View header = navigationView.getHeaderView(0);
         business_name = (TextView) header.findViewById(R.id.header_business_name);
         user_name = (TextView) header.findViewById(R.id.header_user_name);
         user_name.setText(getUserEmail());
 
-        getBusinessesAndRedirect();
+        //get the navigation menu
+        menu = navigationView.getMenu();
 
+        getBusinessesAndRedirect();
     }
 
     /*
@@ -118,7 +117,7 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         new AsyncTask<Void, Object, List<Business>>() {
 
 
-        //show only the right menu items
+            //show only the right menu items
         /*MenuItem manageRestaurants = (MenuItem) findViewById(R.id.nav_restaurants);
         manageRestaurants.setVisible(false);
         this.invalidateOptionsMenu();*/
@@ -138,6 +137,7 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
                 HttpHeaders header = new HttpHeaders();
                 header.add("Authorization", token);
                 try {
+
                     HttpEntity<Owner> request = new HttpEntity(header);
                     response = restTemplate.exchange(url, HttpMethod.GET, request, Business[].class);
                     status = response.getStatusCode();
@@ -166,7 +166,6 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         int list_size = list.size();
         System.out.println("The size of the list is " + list_size);
         if (list == null) {
-
             makeToast("Server response failed");
         } else if (list_size == 0) {
 
@@ -175,10 +174,11 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
             args.putString("parentpage", "login");
             switchToFragment(new AddRestaurantFragment(), args);
         } else if (list_size == 1) {
-
             //redirect to the business home page
             makeToast("Redirect to home page of restaurant");
             setBusinessName(list.get(0).getName());
+            setBusinessId(list.get(0).getId());
+            ShowBusinessSettings(list.get(0));
             switchToFragment(new HomeMenuFragment());
         } else if (list_size > 1) {
 
@@ -190,6 +190,28 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         }
 
         myToolbar.setVisibility(View.VISIBLE);
+    }
+
+   public void ShowBusinessSettings(Business business) {
+
+        MenuItem kitchen = menu.findItem(R.id.nav_kitchen);
+        MenuItem reservations = menu.findItem(R.id.nav_reservation);
+        MenuItem personnel = menu.findItem(R.id.nav_waiters);
+        MenuItem tables = menu.findItem(R.id.nav_tables);
+
+        if (!business.isKitchen()) {
+            kitchen.setVisible(false);
+        }
+        if (!business.isPersonnel()) {
+            personnel.setVisible(false);
+        }
+        if (!business.isTables()) {
+            tables.setVisible(false);
+        }
+        if (!business.isReservations()) {
+            reservations.setVisible(false);
+        }
+
     }
 
     public void switchToFragment(Fragment fragment) {
@@ -205,16 +227,23 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         fragmentTransaction.commit();
     }
 
+    public void switchToFragmentSaveBack(Fragment fragment) {
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(toggleLeft.onOptionsItemSelected(item)) {
-            if(homeMenuFragment !=null) {
+        if (toggleLeft.onOptionsItemSelected(item)) {
+            if (homeMenuFragment != null) {
                 homeMenuFragment.closeRightDrawer();
             }
             return true;
         }
-        if(item.getItemId() == android.R.id.home) {
-            if(getSupportFragmentManager().getBackStackEntryCount() > 0) {
+        if (item.getItemId() == android.R.id.home) {
+            if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
                 getSupportFragmentManager().popBackStack();
                 turnMenuOn();
             }
@@ -225,8 +254,10 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void onBackPressed() {
-        if(getSupportFragmentManager().getBackStackEntryCount() > 0) {
+        View view = this.getCurrentFocus();
+        Log.d("backpressed", "backstand = " + getSupportFragmentManager().getBackStackEntryCount());
 
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
             getSupportFragmentManager().popBackStack();
             turnMenuOn();
         } else {
@@ -234,11 +265,17 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         }
     }
 
+    /*Hides the keyboard when pressing the back button returning to a fragment*/
+    public static void hideKeyboardFrom(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
     public void closeLeftDrawer() {
         drawerLayout.closeDrawers();
     }
 
-    public void setBusinessName(String businessName){
+    public void setBusinessName(String businessName) {
         this.business_name.setText(businessName);
     }
 
@@ -293,8 +330,8 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
                 changeToChangeMenuFragment();
                 break;
         }
-        DrawerLayout dl = (DrawerLayout)  findViewById(R.id.drawerLayout);
-        if(dl.isDrawerOpen(GravityCompat.START)) {
+        DrawerLayout dl = (DrawerLayout) findViewById(R.id.drawerLayout);
+        if (dl.isDrawerOpen(GravityCompat.START)) {
             dl.closeDrawer(GravityCompat.START);
         }
         return false;
@@ -307,6 +344,7 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         fragmentTransaction.replace(R.id.frameLayout, homeMenuFragment);
         fragmentTransaction.commit();
     }
+
 
     public void changeToWaiterDetailFragment(String name) {
         turnMenuOff();
@@ -328,20 +366,6 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         fragmentTransaction.commit();
     }
 
-    public void changeToBusinessDetailFragment(Business business) {
-        turnMenuOff();
-        Gson gson = new Gson();
-        String businessString = gson.toJson(business);
-        Bundle bundle = new Bundle();
-        bundle.putString("business", businessString);
-        BusinessDetailFragment businessDetail = new BusinessDetailFragment();
-        businessDetail.setArguments(bundle);
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout, businessDetail);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-    }
-
     public void changeToChangeMenuFragment() {
         turnMenuOn();
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -359,15 +383,20 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         fragmentTransaction.commit();
     }
 
-    public void turnMenuOff() {
-        toggleLeft.setDrawerIndicatorEnabled(false);
-        toggleLeft.syncState();
+    public void changeToBusinessDetailFragment(Business business) {
+        turnMenuOff();
+        Gson gson = new Gson();
+        String businessString = gson.toJson(business);
+        Bundle bundle = new Bundle();
+        bundle.putString("business", businessString);
+        BusinessDetailFragment businessDetail = new BusinessDetailFragment();
+        businessDetail.setArguments(bundle);
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout, businessDetail);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
-    public void turnMenuOn() {
-        toggleLeft.setDrawerIndicatorEnabled(true);
-        toggleLeft.syncState();
-    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {
@@ -379,6 +408,18 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
 
     }
 
+
+    public void turnMenuOff() {
+        toggleLeft.setDrawerIndicatorEnabled(false);
+        toggleLeft.syncState();
+    }
+
+    public void turnMenuOn() {
+        toggleLeft.setDrawerIndicatorEnabled(true);
+        toggleLeft.syncState();
+    }
+
+
     public void lockDrawer() {
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
@@ -386,6 +427,4 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
     public void unlockDrawer() {
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
     }
-
-
 }

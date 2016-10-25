@@ -132,13 +132,11 @@ ADDED from C:\Users\michael\AndroidStudioProjects\AppProject\app\src\main\Androi
 	android:name
 		ADDED from C:\Users\michael\AndroidStudioProjects\AppProject\app\src\main\AndroidManifest.xml:28:19-48
 activity#com.example.matth.finalapp.MenuActivity
-ADDED from C:\Users\michael\AndroidStudioProjects\AppProject\app\src\main\AndroidManifest.xml:29:9-50
+ADDED from C:\Users\michael\AndroidStudioProjects\AppProject\app\src\main\AndroidManifest.xml:29:9-96
+	android:configChanges
+		ADDED from C:\Users\michael\AndroidStudioProjects\AppProject\app\src\main\AndroidManifest.xml:29:48-94
 	android:name
 		ADDED from C:\Users\michael\AndroidStudioProjects\AppProject\app\src\main\AndroidManifest.xml:29:19-47
-activity#com.example.matth.finalapp.WaiterActivity
-ADDED from C:\Users\michael\AndroidStudioProjects\AppProject\app\src\main\AndroidManifest.xml:30:9-61
-	android:name
-		ADDED from C:\Users\michael\AndroidStudioProjects\AppProject\app\src\main\AndroidManifest.xml:30:19-49
 uses-sdk
 INJECTED from C:\Users\michael\AndroidStudioProjects\AppProject\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [com.android.support:multidex:1.0.1] C:\Users\michael\AndroidStudioProjects\AppProject\app\build\intermediates\exploded-aar\com.android.support\multidex\1.0.1\AndroidManifest.xml:18:5-42

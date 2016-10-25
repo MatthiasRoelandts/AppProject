@@ -21,6 +21,12 @@ public class Business {
     private BigDecimal revenue;
     private String ownerEmail;
 
+
+    private boolean tables;
+    private boolean reservations;
+    private boolean personnel;
+    private boolean kitchen;
+
     public Business(String name, String address, String city, Integer postal) {
         this.name = name;
         this.address = address;
@@ -102,6 +108,40 @@ public class Business {
     public void setRevenue(BigDecimal revenue) {
         this.revenue = revenue;
     }
+
+
+    public boolean isKitchen() {
+        return kitchen;
+    }
+
+    public void setKitchen(boolean kitchen) {
+        this.kitchen = kitchen;
+    }
+
+    public boolean isPersonnel() {
+        return personnel;
+    }
+
+    public void setPersonnel(boolean personnel) {
+        this.personnel = personnel;
+    }
+
+    public boolean isReservations() {
+        return reservations;
+    }
+
+    public void setReservations(boolean reservations) {
+        this.reservations = reservations;
+    }
+
+    public boolean isTables() {
+        return tables;
+    }
+
+    public void setTables(boolean tables) {
+        this.tables = tables;
+    }
+
 
     @Override
     public String toString() {
