@@ -81,6 +81,7 @@ public class ChangeMenuFragment extends Fragment {
             expandableListTitle.add(key.getName());
             expandableListDetail.put(key.getName(), values);
         }
+
         expandableListAdapter = new CustomExpandableMenuAdapter(getActivity(), expandableListTitle, expandableListDetail);
         expandableListView.setAdapter(expandableListAdapter);
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {

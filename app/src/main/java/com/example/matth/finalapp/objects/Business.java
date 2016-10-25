@@ -21,7 +21,6 @@ public class Business {
     private BigDecimal revenue;
     private String ownerEmail;
 
-
     private boolean tables;
     private boolean reservations;
     private boolean personnel;
